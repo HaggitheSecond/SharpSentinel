@@ -56,7 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpSentinel.SAFE\SharpSentinel.SAFE.csproj">
-      <Project>{d5006306-db6f-4d74-b9d2-1bfd778c948f}</Project>
+      <Project>{ed3aaecd-3f88-46de-bb4f-b8a3ea7c812f}</Project>
       <Name>SharpSentinel.SAFE</Name>
     </ProjectReference>
   </ItemGroup>
