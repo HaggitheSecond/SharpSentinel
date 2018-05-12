@@ -9,10 +9,10 @@ As far as i'm aware there's no parser for sentinel-data yet which makes working 
 I'm new to these dataformats, am not quite sure what to expect and have generally no idea how much work is involved. Right now
 this is a fun sideproject without any further goals. 
 
-If you see any errors, problems or have fun facts about sentinel related stuff, **please** create an issue, thanks :)
+If you see any errors, problems or have fun facts about sentinel related stuff, **please** create an issue and let me know, thanks :)
 
 ### Todo:
 
 * Load SAFE-Data (Sentinel 1 & 2)
-* Load von netCDF-Daten (Sentinel 3)
+* Load netCDF-Daten (Sentinel 3)
 * Provide editor like overview over the files
