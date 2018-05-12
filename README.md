@@ -13,8 +13,6 @@ If you see any errors, problems or have fun facts about sentinel related stuff, 
 
 ### Todo:
 
-Load SAFE-Data (Sentinel 1 & 2)
-
-Load von netCDF-Daten (Sentinel 3)
-
-Provide editor like overview over the files
+⋅⋅* Load SAFE-Data (Sentinel 1 & 2)
+⋅⋅* Load von netCDF-Daten (Sentinel 3)
+⋅⋅* Provide editor like overview over the files
