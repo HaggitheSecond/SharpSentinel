@@ -2,3 +2,10 @@
 
 Sentinel 1 Product Specification
 https://earth.esa.int/documents/247904/1877131/Sentinel-1-Product-Specification
+
+Standard Archive Format for Europe - Recommendations for specialisations
+https://wiki.services.eoportal.org/tiki-download_wiki_attachment.php?attId=1441
+
+Data Products
+https://sentinel.esa.int/web/sentinel/missions/sentinel-1/data-products
+

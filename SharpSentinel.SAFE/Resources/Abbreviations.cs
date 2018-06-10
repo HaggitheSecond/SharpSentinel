@@ -18,7 +18,8 @@ namespace SharpSentinel.Parser.Resources
         {
             [Description("Information Processing Facility")]
             IPF,
-
+            [Description("Single Look Complex")]
+            SLC 
         }
     }
 }
