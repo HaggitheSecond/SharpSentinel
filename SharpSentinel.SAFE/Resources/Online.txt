@@ -1,0 +1,4 @@
+﻿This file contains online references
+
+Sentinel 1 Product Specification
+https://earth.esa.int/documents/247904/1877131/Sentinel-1-Product-Specification

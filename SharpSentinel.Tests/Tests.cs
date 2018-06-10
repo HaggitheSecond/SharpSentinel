@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SharpSentinel.SAFE;
+using SharpSentinel.Parser;
+using SharpSentinel.Parser.Resources;
 
 namespace SharpSentinel.Tests
 {
@@ -15,6 +16,12 @@ namespace SharpSentinel.Tests
             var data = await SAFEParser.OpenDataSetAsync(path);
             
             Assert.IsNotNull(data);
+        }
+
+        [TestMethod]
+        public void GetDescription()
+        {
+            var description = Abbreviations.GetDescription(Abbreviations.Abbreviation.IPF);
         }
     }
 }
