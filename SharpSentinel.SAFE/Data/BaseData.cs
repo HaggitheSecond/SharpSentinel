@@ -4,6 +4,6 @@ namespace SharpSentinel.Parser.Data
 {
     public class BaseData
     {
-        public ManifestData ManifestData { get; set; }
+        public Manifest.Manifest ManifestData { get; set; }
     }
 }

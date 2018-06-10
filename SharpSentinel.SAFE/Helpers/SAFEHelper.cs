@@ -11,7 +11,7 @@ namespace SharpSentinel.Parser.Helpers
         /// </summary>
         /// <param name="directoryPath">Path to the SAFE directory</param>
         /// <returns>The platform</returns>
-        internal static Platform DetectPlatform(string directoryPath)
+        internal static PlatformType DetectPlatform(string directoryPath)
         {
             if (Directory.Exists(directoryPath) == false)
                 throw new DirectoryNotFoundException();
@@ -19,9 +19,9 @@ namespace SharpSentinel.Parser.Helpers
             var directory = new DirectoryInfo(directoryPath);
 
             if (directory.Name.StartsWith("S1"))
-                return Platform.Sentinel1;
+                return PlatformType.Sentinel1;
             if (directory.Name.StartsWith("S2"))
-                return Platform.Sentinel2;
+                return PlatformType.Sentinel2;
 
             throw new SAFEDirectoryMalformedException();
         }

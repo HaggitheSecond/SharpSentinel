@@ -27,10 +27,10 @@ namespace SharpSentinel.Parser
 
             switch (platform)
             {
-                case Platform.Sentinel1:
+                case PlatformType.Sentinel1:
                     data = await OpenSentinel1DataSetAsync(path);
                     break;
-                case Platform.Sentinel2:
+                case PlatformType.Sentinel2:
                     data = await OpenSentinel1DataSetAsync(path);
                     break;
                 default:
@@ -50,6 +50,7 @@ namespace SharpSentinel.Parser
             DirectoryHelper.EnsureS1SAFEDirectory(path);
 
             var manifest = ManifestParser.Parse(path);
+
 
             return null;
         }

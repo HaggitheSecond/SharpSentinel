@@ -14,7 +14,7 @@ namespace SharpSentinel.Parser.Parsers
         /// </summary>
         /// <param name="directory">Path to the SAFE directory</param>
         /// <returns>The parsed manifest data</returns>
-        public static ManifestData Parse(string directory)
+        public static Manifest Parse(string directory)
         {
             var file = FileHelper.GetFiles(directory, SAFEFileTypes.Manifest).First();
             
@@ -23,7 +23,7 @@ namespace SharpSentinel.Parser.Parsers
                 var document = new XmlDocument();
                 document.Load(fileStream);
               
-                return new ManifestData(file.FullName, document);
+                return new Manifest(file.FullName, document);
             }
 
         }

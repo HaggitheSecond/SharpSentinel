@@ -1,6 +1,6 @@
 ﻿namespace SharpSentinel.Parser.Data.Internal
 {
-    internal enum Platform
+    internal enum PlatformType
     {
         Sentinel1,
         Sentinel2
