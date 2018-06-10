@@ -24,8 +24,8 @@ namespace SharpSentinel.SAFE.Parsers
             {
                 var document = new XmlDocument();
                 document.Load(fileStream);
-                
-                return new ManifestData(document);
+              
+                return new ManifestData(file.FullName, document);
             }
 
         }
