@@ -1,8 +1,7 @@
 ﻿using System;
-using SharpSentinel.SAFE.Data.Internal;
-using SharpSentinel.SAFE.Helpers;
+using SharpSentinel.Parser.Data.Internal;
 
-namespace SharpSentinel.SAFE.Extensions
+namespace SharpSentinel.Parser.Extensions
 {
     internal static class SAFEFilesExtensions
     {

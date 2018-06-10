@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSentinel.UI", "SharpSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSentinel.Tests", "SharpSentinel.Tests\SharpSentinel.Tests.csproj", "{DED58220-375D-4F0F-A78A-BA8995BB973A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSentinel.SAFE", "SharpSentinel.SAFE\SharpSentinel.SAFE.csproj", "{ED3AAECD-3F88-46DE-BB4F-B8A3EA7C812F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpSentinel.Parser", "SharpSentinel.SAFE\SharpSentinel.Parser.csproj", "{ED3AAECD-3F88-46DE-BB4F-B8A3EA7C812F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

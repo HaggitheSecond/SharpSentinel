@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using SharpSentinel.SAFE.Data.Internal;
-using SharpSentinel.SAFE.Extensions;
+using SharpSentinel.Parser.Data.Internal;
+using SharpSentinel.Parser.Extensions;
 
-namespace SharpSentinel.SAFE.Helpers
+namespace SharpSentinel.Parser.Helpers
 {
     internal static class FileHelper
     {

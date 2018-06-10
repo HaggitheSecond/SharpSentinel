@@ -1,7 +1,7 @@
 ﻿using System.Xml;
-using SharpSentinel.SAFE.Data.Internal.FileTypes;
+using SharpSentinel.Parser.Data.Internal.FileTypes;
 
-namespace SharpSentinel.SAFE.Data
+namespace SharpSentinel.Parser.Data.Manifest
 {
     public sealed class ManifestData : XMLFile
     {

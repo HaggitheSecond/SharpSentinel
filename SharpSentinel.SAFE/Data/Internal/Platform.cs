@@ -1,4 +1,4 @@
-﻿namespace SharpSentinel.SAFE.Data.Internal
+﻿namespace SharpSentinel.Parser.Data.Internal
 {
     internal enum Platform
     {

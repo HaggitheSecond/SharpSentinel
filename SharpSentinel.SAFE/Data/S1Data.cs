@@ -1,4 +1,4 @@
-﻿namespace SharpSentinel.SAFE.Data
+﻿namespace SharpSentinel.Parser.Data
 {
     public class S1Data : BaseData
     {

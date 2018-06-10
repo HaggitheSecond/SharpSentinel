@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SharpSentinel.SAFE.Data;
-using SharpSentinel.SAFE.Data.Internal;
-using SharpSentinel.SAFE.Helpers;
-using SharpSentinel.SAFE.Parsers;
+using SharpSentinel.Parser.Data;
+using SharpSentinel.Parser.Data.Internal;
+using SharpSentinel.Parser.Helpers;
+using SharpSentinel.Parser.Parsers;
 
-namespace SharpSentinel.SAFE
+namespace SharpSentinel.Parser
 {
     /// <summary>
     /// The entry point to parse sentinel 1 and 2 datasets.

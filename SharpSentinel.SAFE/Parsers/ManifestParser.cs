@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml;
-using SharpSentinel.SAFE.Data;
-using SharpSentinel.SAFE.Data.Internal;
-using SharpSentinel.SAFE.Helpers;
+using SharpSentinel.Parser.Data.Internal;
+using SharpSentinel.Parser.Data.Manifest;
+using SharpSentinel.Parser.Helpers;
 
-namespace SharpSentinel.SAFE.Parsers
+namespace SharpSentinel.Parser.Parsers
 {
     internal static class ManifestParser
     {

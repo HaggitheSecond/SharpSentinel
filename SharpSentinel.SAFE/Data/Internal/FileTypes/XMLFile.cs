@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace SharpSentinel.SAFE.Data.Internal.FileTypes
+namespace SharpSentinel.Parser.Data.Internal.FileTypes
 {
     public abstract class XMLFile : DataFile
     {

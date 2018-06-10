@@ -1,6 +1,6 @@
-﻿using SharpSentinel.SAFE.Parsers;
+﻿using SharpSentinel.Parser.Data.Manifest;
 
-namespace SharpSentinel.SAFE.Data
+namespace SharpSentinel.Parser.Data
 {
     public class BaseData
     {

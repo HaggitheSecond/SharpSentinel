@@ -1,8 +1,8 @@
 ﻿using System.IO;
-using SharpSentinel.SAFE.Data.Internal;
-using SharpSentinel.SAFE.Exceptions;
+using SharpSentinel.Parser.Data.Internal;
+using SharpSentinel.Parser.Exceptions;
 
-namespace SharpSentinel.SAFE.Helpers
+namespace SharpSentinel.Parser.Helpers
 {
     internal static class SAFEHelper
     {

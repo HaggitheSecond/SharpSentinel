@@ -1,4 +1,4 @@
-﻿namespace SharpSentinel.SAFE.Data.Internal
+﻿namespace SharpSentinel.Parser.Data.Internal
 {
     /// <summary>
     /// Not sure if this is a very good idea, we'll see

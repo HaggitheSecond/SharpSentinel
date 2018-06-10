@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace SharpSentinel.SAFE.Exceptions
+namespace SharpSentinel.Parser.Exceptions
 {
     public class SAFEDirectoryMalformedException : Exception
     {
