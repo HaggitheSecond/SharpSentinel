@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace SharpSentinel.Parser.Data.Manifest
+﻿namespace SharpSentinel.Parser.Data.ManifestObjects
 {
     public class MeasurementFrameSet
     {

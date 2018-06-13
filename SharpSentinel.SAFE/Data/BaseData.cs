@@ -1,9 +1,9 @@
-﻿using SharpSentinel.Parser.Data.Manifest;
+﻿using SharpSentinel.Parser.Data.ManifestObjects;
 
 namespace SharpSentinel.Parser.Data
 {
     public class BaseData
     {
-        public Manifest.Manifest ManifestData { get; set; }
+        public Manifest ManifestData { get; set; }
     }
 }

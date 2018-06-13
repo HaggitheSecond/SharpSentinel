@@ -1,9 +1,9 @@
 ﻿using System.Xml;
 using SharpSentinel.Parser.Data.Internal.FileTypes;
 
-namespace SharpSentinel.Parser.Data.Manifest
+namespace SharpSentinel.Parser.Data.ManifestObjects
 {
-    public sealed class Manifest : XMLFile
+    public sealed class Manifest : DataFile
     {
         /// <summary>
         /// Metadata describing the mission platform to which acquired the data.
@@ -31,10 +31,9 @@ namespace SharpSentinel.Parser.Data.Manifest
         /// </summary>
         public GeneralProductInformation GeneralProductInformation { get; set; }
 
-        public Manifest(string filePath, XmlDocument document)
-        : base(filePath, document)
+        public Manifest(string filePath)
+        : base(filePath)
         {
-
         }
     }
 }

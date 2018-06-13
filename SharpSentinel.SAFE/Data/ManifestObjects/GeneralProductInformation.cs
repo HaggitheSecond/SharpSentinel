@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+// ReSharper disable InconsistentNaming
 
-namespace SharpSentinel.Parser.Data.Manifest
+namespace SharpSentinel.Parser.Data.ManifestObjects
 {
     public class GeneralProductInformation
     {
@@ -71,10 +72,10 @@ namespace SharpSentinel.Parser.Data.Manifest
     /// </summary>
     public enum ProductTimelinessCategoryType
     {
-        NRT10M,
-        NRT1H,
-        NRT3H,
-        Fast24H,
+        NRT10m,
+        NRT1h,
+        NRT3h,
+        Fast24h,
         Offline,
         Reprocessing
     }

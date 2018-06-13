@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Xml;
 
-namespace SharpSentinel.Parser.Data.Manifest
+// ReSharper disable PossibleNullReferenceException
+
+namespace SharpSentinel.Parser.Data.ManifestObjects
 {
     public class AcquisitionPeriod
     {
@@ -17,11 +20,11 @@ namespace SharpSentinel.Parser.Data.Manifest
         /// <summary>
         /// Sensing start time of the input data relative to the ascending node crossing.This is a count of the time elapsed since the orbit ascending node crossing[ms].
         /// </summary>
-        public decimal StartTimeANX { get; set; }
+        public double StartTimeANX { get; set; }
 
         /// <summary>
         /// Sensing stop time of the input data relative to the ascending node crossing.This is a count of the time elapsed since the orbit ascending node crossing[ms].
         /// </summary>
-        public decimal StopTimeANX { get; set; }
+        public double StopTimeANX { get; set; }
     }
 }
