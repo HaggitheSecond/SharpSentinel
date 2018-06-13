@@ -55,7 +55,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SharpSentinel.SAFE\SharpSentinel.Parser.csproj">
+    <ProjectReference Include="..\SharpSentinel.Parser\SharpSentinel.Parser.csproj">
       <Project>{ed3aaecd-3f88-46de-bb4f-b8a3ea7c812f}</Project>
       <Name>SharpSentinel.Parser</Name>
     </ProjectReference>
