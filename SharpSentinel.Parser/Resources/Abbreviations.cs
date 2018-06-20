@@ -14,12 +14,27 @@ namespace SharpSentinel.Parser.Resources
             return abbreviation.GetDescription();
         }
 
+        public static string GetDescription(XMLAbbreviation abbreviation)
+        {
+            return abbreviation.GetDescription();
+        }
+
         public enum Abbreviation
         {
             [Description("Information Processing Facility")]
             IPF,
             [Description("Single Look Complex")]
-            SLC 
+            SLC ,
+        }
+
+        public enum XMLAbbreviation
+        {
+            [Description("Description Information")]
+            DMD,
+            [Description("Preservation Information")]
+            PDI,
+            [Description("Representation Information")]
+            REP
         }
     }
 }
