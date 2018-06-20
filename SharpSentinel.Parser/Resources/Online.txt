@@ -1,11 +1,41 @@
 ﻿This file contains online references
 
-Sentinel 1 Product Specification
-https://earth.esa.int/documents/247904/1877131/Sentinel-1-Product-Specification
+General ------------------------------------------------------------------------------------------------------------------------------------------------------>
+
+Document Library 
+https://sentinels.copernicus.eu/web/sentinel/user-guides/document-library
 
 Standard Archive Format for Europe - Recommendations for specialisations
 https://wiki.services.eoportal.org/tiki-download_wiki_attachment.php?attId=1441
 
 Data Products
 https://sentinel.esa.int/web/sentinel/missions/sentinel-1/data-products
+
+Sentinel 1 ---------------------------------------------------------------------------------------------------------------------------------------------------->
+
+Sentinel 1 Product Specification
+https://earth.esa.int/documents/247904/1877131/Sentinel-1-Product-Specification
+
+Sentinel 2 ---------------------------------------------------------------------------------------------------------------------------------------------------->
+
+Sentinel 2 Document Library
+https://sentinels.copernicus.eu/web/sentinel/user-guides/sentinel-2-msi/document-library
+
+Sentinel 2 Product Specification 
+https://sentinel.esa.int/documents/247904/685211/Sentinel-2-Products-Specification-Document
+
+Sentinel 2 User Handbook
+https://sentinels.copernicus.eu/documents/247904/685211/Sentinel-2_User_Handbook
+
+Sentinel 3---------------------------------------------------------------------------------------------------------------------------------------------------->
+
+Sentinel 3 Product Format Specification 
+https://sentinel.esa.int/documents/247904/1848151/Sentinel-3_Product_Format_Specification_Product_Structures
+
+Sentinel 3 Product Data Format Specification Level 0
+https://earth.esa.int/documents/247904/1872745/Sentinel-3-Product-Data-Format-Specification-Level-0
+
+Sentinel 3 Product Data Format Specification Synergy Level 1 - 2
+https://sentinel.esa.int/documents/247904/1872824/Sentinel-3_Product_Data_Format_Specification-Synergy_Level-1-2_Products
+
 
