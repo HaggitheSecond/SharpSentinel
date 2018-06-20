@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace SharpSentinel.Parser.Data.ManifestObjects
 {
@@ -29,6 +30,11 @@ namespace SharpSentinel.Parser.Data.ManifestObjects
         /// Reference to resources involved in the processing. This  includes references to orbit and attitude files used to process the product.
         /// </summary>
         public IList<ProcessingResource> Resources { get; set; }
+
+        public Processing()
+        {
+            this.Resources = new List<ProcessingResource>();
+        }
     }
     
     public class ProcessingFacility
@@ -46,7 +52,7 @@ namespace SharpSentinel.Parser.Data.ManifestObjects
         /// <summary>
         /// Name of the organisation responsible for the facility. This element is configurable within the IPF.
         /// </summary>
-        public string Oganisation { get; set; }
+        public string Organisation { get; set; }
 
         /// <summary>
         /// Geographical location of the facility. This element is configurable within the IPF.
@@ -57,6 +63,11 @@ namespace SharpSentinel.Parser.Data.ManifestObjects
         /// Reference to the software used for the processing step.
         /// </summary>
         public IList<ProcessingSoftware> Software { get; set; }
+
+        public ProcessingFacility()
+        {
+            this.Software = new List<ProcessingSoftware>();
+        }
     }
 
     public class ProcessingSoftware

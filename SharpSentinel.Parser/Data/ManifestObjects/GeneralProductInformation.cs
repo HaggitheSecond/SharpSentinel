@@ -65,6 +65,11 @@ namespace SharpSentinel.Parser.Data.ManifestObjects
         /// Total number of slices in the complete data take. This field is only present if sliceProductFlag = true.
         /// </summary>
         public int? TotalSlices { get; set; }
+
+        public GeneralProductInformation()
+        {
+            this.TransmitterReceiverPolarisation = new List<TransmitterReceiverPolarisationType>();
+        }
     }
 
     /// <summary>

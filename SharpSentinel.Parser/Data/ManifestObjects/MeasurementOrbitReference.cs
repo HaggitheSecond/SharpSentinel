@@ -47,7 +47,7 @@ namespace SharpSentinel.Parser.Data.ManifestObjects
 
     public enum PassType
     {
-        Ascending,
-        Descending
+        ASCENDING,
+        DESCENDING
     }
 }

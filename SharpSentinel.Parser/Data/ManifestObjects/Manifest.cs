@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.Collections.Generic;
+using System.Xml;
 using SharpSentinel.Parser.Data.Internal.FileTypes;
 
 namespace SharpSentinel.Parser.Data.ManifestObjects
@@ -30,6 +31,12 @@ namespace SharpSentinel.Parser.Data.ManifestObjects
         /// Metadata describing the product.
         /// </summary>
         public GeneralProductInformation GeneralProductInformation { get; set; }
+
+        /// <summary>
+        /// Metadata describing the processing steps performed on the auxiliary data.
+
+        /// </summary>
+        public Processing Processing { get; set; }
 
         public Manifest(string filePath)
         : base(filePath)

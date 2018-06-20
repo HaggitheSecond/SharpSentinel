@@ -48,12 +48,6 @@ namespace SharpSentinel.Parser.Data.ManifestObjects
         /// Sign of leap second (+ or -).
         /// </summary>
         public SignType Sign { get; set; }
-
-        public enum SignType
-        {
-            Plus,
-            Minus
-        }
     }
 
     public class PlatformInstrument
@@ -73,11 +67,24 @@ namespace SharpSentinel.Parser.Data.ManifestObjects
         /// </summary>
         public InstrumentModeType Mode { get; set; }
 
-        //TODO: Use actual type for this
         /// <summary>
         /// List of the swaths contained within a product. Most products will contain only one swath, except for TOPS SLC products which include 3 or 5 swaths.
         /// </summary>
         public IList<SwathType> Swaths { get; set; }
+
+        public PlatformInstrument()
+        {
+            this.Swaths = new List<SwathType>();
+        }
+    }
+
+    /// <summary>
+    /// Enumeration for sign of leap second.
+    /// </summary>
+    public enum SignType
+    {
+        Plus,
+        Minus
     }
 
     /// <summary>

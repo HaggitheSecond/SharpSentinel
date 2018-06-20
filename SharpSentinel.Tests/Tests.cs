@@ -17,7 +17,7 @@ namespace SharpSentinel.Tests
             
             Assert.IsNotNull(data);
         }
-
+        
         [TestMethod]
         public void GetDescription()
         {

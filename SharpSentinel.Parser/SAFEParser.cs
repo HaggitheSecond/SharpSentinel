@@ -50,9 +50,11 @@ namespace SharpSentinel.Parser
             DirectoryHelper.EnsureS1SAFEDirectory(path);
 
             var manifest = ManifestParser.Parse(path);
-
-
-            return null;
+            
+            return new S1Data
+            {
+                ManifestData = manifest
+            };
         }
 
         /// <summary>
