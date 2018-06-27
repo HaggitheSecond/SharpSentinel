@@ -8,5 +8,10 @@ namespace SharpSentinel.Parser.Extensions
         {
             return self.SelectSingleNode($"metadataObject[@ID='{id}']");
         }
+
+        public static XmlNode SelectedDataObjectById(this XmlNode self, string id)
+        {
+            return self.SelectSingleNode($"dataObject[@ID='{id}']");
+        }
     }
 }
