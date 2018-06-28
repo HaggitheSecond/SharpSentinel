@@ -22,20 +22,18 @@ namespace SharpSentinel.Parser.Parsers
             Guard.NotNull(manager, nameof(manager));
             Guard.NotNullAndValidFileSystemInfo(baseDirectory, nameof(baseDirectory));
 
-            var measurementDataUnits = new List<MeasurementDataUnit>();
             var measurementDataUnitNodes = informationPackageMap.SelectNodes("xfdu:contentUnit/xfdu:contentUnit[@unitType='Measurement Data Unit']", manager);
 
-            foreach (var currentMeasurementDataUnitNode in measurementDataUnitNodes.Cast<XmlNode>())
-            {
-                measurementDataUnits.Add(ParseMeasurementUnit(currentMeasurementDataUnitNode, metaDataSection, dataObjectSection, manager, baseDirectory));
-            }
-
-            return measurementDataUnits;
+            return measurementDataUnitNodes.Cast<XmlNode>().Select(f => ParseMeasurementUnit(f, metaDataSection, dataObjectSection, manager, baseDirectory)).ToList();
         }
 
-        private static MeasurementDataUnit ParseMeasurementUnit([NotNull]XmlNode informationPackageMapNode, [NotNull]XmlNode metaDataSection, [NotNull]XmlNode dataObjectNode, [NotNull]XmlNamespaceManager manager, [NotNull]DirectoryInfo baseDirectory)
+        private static MeasurementDataUnit ParseMeasurementUnit([NotNull]XmlNode informationPackageMapNode, [NotNull]XmlNode metaDataSection, [NotNull]XmlNode dataObjectSection, [NotNull]XmlNamespaceManager manager, [NotNull]DirectoryInfo baseDirectory)
         {
             var measurementDataUnit = new MeasurementDataUnit();
+
+            var objectIdNode = informationPackageMapNode.SelectSingleNode("dataObjectPointer");
+            var objectId = objectIdNode.GetAttributeValue("dataObjectID");
+            var measurementDataObject = dataObjectSection.SelectedDataObjectById(objectId);
 
             var repId = informationPackageMapNode
                 .Attributes
@@ -62,7 +60,7 @@ namespace SharpSentinel.Parser.Parsers
                         .GetNamedItem("dataObjectID")
                         .Value;
 
-                    var annotationDataObject = dataObjectNode.SelectedDataObjectById(annotationDataObjectId);
+                    var annotationDataObject = dataObjectSection.SelectedDataObjectById(annotationDataObjectId);
 
                     var annotationFileLocation = annotationDataObject.GetFileInfoFromDataObject(baseDirectory);
                     var annotationChecksum = annotationDataObject.GetChecksumFromDataObject();
@@ -95,9 +93,9 @@ namespace SharpSentinel.Parser.Parsers
             {
                 throw new XmlException("Found unknown measurement data unit");
             }
-
-            measurementDataUnit.File = dataObjectNode.GetFileInfoFromDataObject(baseDirectory);
-            measurementDataUnit.Checksum = dataObjectNode.GetChecksumFromDataObject();
+            
+            measurementDataUnit.File = measurementDataObject.GetFileInfoFromDataObject(baseDirectory);
+            measurementDataUnit.Checksum = measurementDataObject.GetChecksumFromDataObject();
 
             return measurementDataUnit;
         }
