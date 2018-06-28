@@ -1,15 +1,16 @@
 ﻿using System.IO;
+using JetBrains.Annotations;
 using SharpSentinel.Parser.Data.Common;
 using SharpSentinel.Parser.Data.S1;
+using SharpSentinel.Parser.Helpers;
 
 namespace SharpSentinel.Parser.Parsers
 {
     public static class AnnotationParser
     {
-        public static NoiseAnnotation ParseNoiseAnnotation(FileInfo fileInfo, Checksum checkSum)
+        public static NoiseAnnotation ParseNoiseAnnotation([NotNull]FileInfo fileInfo, [CanBeNull]Checksum checkSum)
         {
-            if (File.Exists(fileInfo.FullName) == false)
-                throw new FileNotFoundException(fileInfo.Name);
+            Guard.NotNullAndValidFileSystemInfo(fileInfo, nameof(fileInfo));
 
             var noiseAnnotation = new NoiseAnnotation
             {
@@ -20,10 +21,9 @@ namespace SharpSentinel.Parser.Parsers
             return noiseAnnotation;
         }
 
-        public static ProductAnnotation ParseProductAnnotation(FileInfo fileInfo, Checksum checkSum)
+        public static ProductAnnotation ParseProductAnnotation([NotNull]FileInfo fileInfo, [CanBeNull]Checksum checkSum)
         {
-            if (File.Exists(fileInfo.FullName) == false)
-                throw new FileNotFoundException(fileInfo.Name);
+            Guard.NotNullAndValidFileSystemInfo(fileInfo, nameof(fileInfo));
 
             var productAnnotation = new ProductAnnotation
             {
@@ -34,10 +34,9 @@ namespace SharpSentinel.Parser.Parsers
             return productAnnotation;
         }
 
-        public static CalibriationAnnotation ParseCalibriationAnnotation(FileInfo fileInfo, Checksum checkSum)
+        public static CalibriationAnnotation ParseCalibriationAnnotation([NotNull]FileInfo fileInfo, [CanBeNull] Checksum checkSum)
         {
-            if (File.Exists(fileInfo.FullName) == false)
-                throw new FileNotFoundException(fileInfo.Name);
+            Guard.NotNullAndValidFileSystemInfo(fileInfo, nameof(fileInfo));
 
             var calibrationAnnotation = new CalibriationAnnotation
             {

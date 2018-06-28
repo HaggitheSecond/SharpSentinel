@@ -3,6 +3,8 @@ using System.IO;
 using System.Xml;
 using JetBrains.Annotations;
 using SharpSentinel.Parser.Data.Common;
+using SharpSentinel.Parser.Exceptions.XML;
+using SharpSentinel.Parser.Helpers;
 
 namespace SharpSentinel.Parser.Extensions
 {
@@ -22,16 +24,27 @@ namespace SharpSentinel.Parser.Extensions
         {
             var attributes = self.Attributes;
 
-            return attributes.GetNamedItem(attributeName).Value;
+            if(attributes == null)
+                throw new XmlException($"No attributes found for {self.Name}");
+
+            var attribute = attributes.GetNamedItem(attributeName);
+
+            if(attribute == null)
+                throw new XmlException($"Attribute with id {attributeName} not found for {self.Name}");
+
+            return attribute.Value;
         }
 
         public static FileInfo GetFileInfoFromDataObject(this XmlNode dataObjectNode, [NotNull] DirectoryInfo baseDirectory)
         {
+            Guard.NotNull(dataObjectNode, nameof(dataObjectNode));
+            Guard.NotNullAndValidFileSystemInfo(baseDirectory, nameof(baseDirectory));
+
             var fileLocationNode = dataObjectNode
                 .SelectSingleNode("byteStream/fileLocation");
 
             if (fileLocationNode == null)
-                throw new XmlException();
+                throw new XmlNodeNotFoundException();
 
             var fileLocationRawAttributes = fileLocationNode
                 .Attributes;
@@ -58,6 +71,8 @@ namespace SharpSentinel.Parser.Extensions
 
         public static Checksum GetChecksumFromDataObject(this XmlNode dataObjectNode)
         {
+            Guard.NotNull(dataObjectNode, nameof(dataObjectNode));
+
             var checksum = new Checksum();
 
             var checksumNode = dataObjectNode

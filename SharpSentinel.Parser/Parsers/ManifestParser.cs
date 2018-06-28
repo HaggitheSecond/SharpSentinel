@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Xml;
+using JetBrains.Annotations;
 using SharpSentinel.Parser.Data;
 using SharpSentinel.Parser.Data.Internal;
 using SharpSentinel.Parser.Data.ManifestObjects;
@@ -20,14 +21,22 @@ namespace SharpSentinel.Parser.Parsers
         /// </summary>
         /// <param name="directory">Path to the SAFE directory</param>
         /// <returns>The parsed manifest data</returns>
-        public static S1Data Parse(string directory)
+        public static S1Data Parse([NotNull]string directory)
         {
+            Guard.NotNullOrWhitespace(directory, nameof(directory));
+
+            var directoryInfo = new DirectoryInfo(directory);
+
+            Guard.NotNullAndValidFileSystemInfo(directoryInfo, nameof(directoryInfo));
+
             var data = new S1Data
             {
-                BaseDirectory = new DirectoryInfo(directory)
+                BaseDirectory = directoryInfo
             };
 
             var file = FileHelper.GetFiles(directory, SAFEFileTypes.Manifest).First();
+
+            Guard.NotNullAndValidFileSystemInfo(file, nameof(file));
 
             using (var fileStream = new FileStream(file.FullName, FileMode.Open))
             {
@@ -55,7 +64,7 @@ namespace SharpSentinel.Parser.Parsers
                     File = file
                 };
 
-                var allDataUnits = MeasurementDataUnitParser.Parse(informationPackageMap, dataObjectSection, metaDataSection, manager, data.BaseDirectory);
+                var allDataUnits = MeasurementDataUnitParser.Parse(informationPackageMap, metaDataSection, dataObjectSection, manager, data.BaseDirectory);
                 data.MeasurementDataUnits = allDataUnits.Where(f => f.MeasurementDataUnitType == MeasurementDataUnitType.Measurement).ToList();
                 data.QuickLookDataUnit = allDataUnits.FirstOrDefault(f => f.MeasurementDataUnitType == MeasurementDataUnitType.QuickLook);
             }
@@ -63,8 +72,10 @@ namespace SharpSentinel.Parser.Parsers
             return data;
         }
 
-        private static XmlNamespaceManager GenerateManager(XmlDocument document)
+        private static XmlNamespaceManager GenerateManager([NotNull]XmlDocument document)
         {
+            Guard.NotNull(document, nameof(document));
+
             var manager = new XmlNamespaceManager(document.NameTable);
 
             manager.AddNamespace("safe", "http://www.esa.int/safe/sentinel-1.0");

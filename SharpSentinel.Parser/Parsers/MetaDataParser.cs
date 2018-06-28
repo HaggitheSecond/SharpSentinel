@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Xml;
+using JetBrains.Annotations;
 using SharpSentinel.Parser.Data.ManifestObjects;
 using SharpSentinel.Parser.Extensions;
+using SharpSentinel.Parser.Helpers;
+// ReSharper disable MemberHidesStaticFromOuterClass
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable AssignNullToNotNullAttribute
 
@@ -10,8 +13,11 @@ namespace SharpSentinel.Parser.Parsers
 {
     public static class MetaDataParser
     {
-        public static MetaData Parse(XmlNode metaDataNode, XmlNamespaceManager manager)
+        public static MetaData Parse([NotNull]XmlNode metaDataNode, [NotNull]XmlNamespaceManager manager)
         {
+            Guard.NotNull(metaDataNode, nameof(metaDataNode));
+            Guard.NotNull(manager, nameof(manager));
+
             var manifest = new MetaData();
 
             var acqNode = metaDataNode.SelectMetaDataObjectByID("acquisitionPeriod");
@@ -38,17 +44,23 @@ namespace SharpSentinel.Parser.Parsers
 
         private static class ProcessingParser
         {
-            public static Processing Parse(XmlNode node, XmlNamespaceManager manager)
+            public static Processing Parse([NotNull]XmlNode processingNode, [NotNull]XmlNamespaceManager manager)
             {
-                var dataNode = node.SelectSingleNode("metadataWrap/xmlData/safe:processing", manager);
+                Guard.NotNull(processingNode, nameof(processingNode));
+                Guard.NotNull(manager, nameof(manager));
+
+                var dataNode = processingNode.SelectSingleNode("metadataWrap/xmlData/safe:processing", manager);
                 return ParseProcessing(dataNode, manager);
             }
 
-            private static Processing ParseProcessing(XmlNode node, XmlNamespaceManager manager)
+            private static Processing ParseProcessing([NotNull]XmlNode processingNode, [NotNull]XmlNamespaceManager manager)
             {
+                Guard.NotNull(processingNode, nameof(processingNode));
+                Guard.NotNull(manager, nameof(manager));
+
                 var processing = new Processing();
 
-                foreach (var attribute in node.Attributes.Cast<XmlAttribute>())
+                foreach (var attribute in processingNode.Attributes.Cast<XmlAttribute>())
                 {
                     switch (attribute.Name)
                     {
@@ -64,11 +76,11 @@ namespace SharpSentinel.Parser.Parsers
                     }
                 }
 
-                var facilityNode = node.SelectSingleNode("safe:facility", manager);
+                var facilityNode = processingNode.SelectSingleNode("safe:facility", manager);
                 if (facilityNode != null)
                     processing.Facility = ParseFacility(facilityNode, manager);
 
-                var resourceNodes = node.SelectNodes("safe:resource", manager);
+                var resourceNodes = processingNode.SelectNodes("safe:resource", manager);
                 foreach (var currentResourceNode in resourceNodes.Cast<XmlNode>())
                 {
                     processing.Resources.Add(ParseResource(currentResourceNode, manager));
@@ -77,11 +89,14 @@ namespace SharpSentinel.Parser.Parsers
                 return processing;
             }
 
-            private static ProcessingResource ParseResource(XmlNode node, XmlNamespaceManager manager)
+            private static ProcessingResource ParseResource([NotNull]XmlNode resourceNode, [NotNull]XmlNamespaceManager manager)
             {
+                Guard.NotNull(resourceNode, nameof(resourceNode));
+                Guard.NotNull(manager, nameof(manager));
+
                 var resource = new ProcessingResource();
 
-                foreach (var attribute in node.Attributes.Cast<XmlAttribute>())
+                foreach (var attribute in resourceNode.Attributes.Cast<XmlAttribute>())
                 {
                     switch (attribute.Name)
                     {
@@ -97,7 +112,7 @@ namespace SharpSentinel.Parser.Parsers
                     }
                 }
 
-                var processingNodes = node.SelectNodes("safe:processing", manager);
+                var processingNodes = resourceNode.SelectNodes("safe:processing", manager);
 
                 foreach (var currentProcessingNode in processingNodes.Cast<XmlNode>())
                 {
@@ -107,11 +122,14 @@ namespace SharpSentinel.Parser.Parsers
                 return resource;
             }
 
-            private static ProcessingFacility ParseFacility(XmlNode node, XmlNamespaceManager manager)
+            private static ProcessingFacility ParseFacility([NotNull]XmlNode facilityNode, [NotNull]XmlNamespaceManager manager)
             {
+                Guard.NotNull(facilityNode, nameof(facilityNode));
+                Guard.NotNull(manager, nameof(manager));
+
                 var facility = new ProcessingFacility();
 
-                foreach (var attribute in node.Attributes.Cast<XmlAttribute>())
+                foreach (var attribute in facilityNode.Attributes.Cast<XmlAttribute>())
                 {
                     switch (attribute.Name)
                     {
@@ -130,7 +148,7 @@ namespace SharpSentinel.Parser.Parsers
                     }
                 }
 
-                var softwareNodes = node.SelectNodes("safe:software", manager);
+                var softwareNodes = facilityNode.SelectNodes("safe:software", manager);
 
                 foreach (var currentSoftwareNode in softwareNodes.Cast<XmlNode>())
                 {
@@ -159,11 +177,14 @@ namespace SharpSentinel.Parser.Parsers
 
         private static class PlatformParser
         {
-            public static Platform Parse(XmlNode node, XmlNamespaceManager manager)
+            public static Platform Parse([NotNull]XmlNode platformNode, [NotNull]XmlNamespaceManager manager)
             {
+                Guard.NotNull(platformNode, nameof(platformNode));
+                Guard.NotNull(manager, nameof(manager));
+
                 var platform = new Platform { Instrument = new PlatformInstrument(), LeapSecondInformation = new LeapSecondInformation() };
 
-                var dataNode = node.SelectSingleNode("metadataWrap/xmlData/safe:platform", manager);
+                var dataNode = platformNode.SelectSingleNode("metadataWrap/xmlData/safe:platform", manager);
 
                 var nssdcIdentifierNode = dataNode.SelectSingleNode("safe:nssdcIdentifier", manager);
                 platform.NssdcIdentifier = nssdcIdentifierNode.InnerText;
@@ -218,11 +239,14 @@ namespace SharpSentinel.Parser.Parsers
 
         private static class MeasurementOrbitReferenceParser
         {
-            public static MeasurementOrbitReference Parse(XmlNode node, XmlNamespaceManager manager)
+            public static MeasurementOrbitReference Parse([NotNull]XmlNode measurementOrbitReferenceNode, [NotNull]XmlNamespaceManager manager)
             {
+                Guard.NotNull(measurementOrbitReferenceNode, nameof(measurementOrbitReferenceNode));
+                Guard.NotNull(manager, nameof(manager));
+
                 var measurementOrbitReference = new MeasurementOrbitReference();
 
-                var dataNode = node.SelectSingleNode("metadataWrap/xmlData/safe:orbitReference", manager);
+                var dataNode = measurementOrbitReferenceNode.SelectSingleNode("metadataWrap/xmlData/safe:orbitReference", manager);
 
                 var orbitNumberNodes = dataNode.SelectNodes("safe:orbitNumber", manager);
 
@@ -282,11 +306,14 @@ namespace SharpSentinel.Parser.Parsers
 
         private static class MeasurementFrameParser
         {
-            public static MeasurementFrameSet Parse(XmlNode node, XmlNamespaceManager manager)
+            public static MeasurementFrameSet Parse([NotNull]XmlNode measurementFrameSetNode, [NotNull]XmlNamespaceManager manager)
             {
+                Guard.NotNull(measurementFrameSetNode, nameof(measurementFrameSetNode));
+                Guard.NotNull(manager, nameof(manager));
+
                 var measureementFrameSet = new MeasurementFrameSet();
 
-                var dataNodes = node.SelectNodes("metadataWrap/xmlData/safe:frameSet/safe:frame", manager);
+                var dataNodes = measurementFrameSetNode.SelectNodes("metadataWrap/xmlData/safe:frameSet/safe:frame", manager);
 
                 foreach (var currentFrameNode in dataNodes.Cast<XmlNode>())
                 {
@@ -296,16 +323,19 @@ namespace SharpSentinel.Parser.Parsers
                 return measureementFrameSet;
             }
 
-            private static MeasurementFrame ParseFrame(XmlNode node, XmlNamespaceManager manager)
+            private static MeasurementFrame ParseFrame([NotNull]XmlNode measurementFrameNode, [NotNull]XmlNamespaceManager manager)
             {
+                Guard.NotNull(measurementFrameNode, nameof(measurementFrameNode));
+                Guard.NotNull(manager, nameof(manager));
+                
                 var measurementFrame = new MeasurementFrame();
 
-                var numberNode = node.SelectSingleNode("safe:number", manager);
+                var numberNode = measurementFrameNode.SelectSingleNode("safe:number", manager);
 
                 if (numberNode != null)
                     measurementFrame.Number = int.Parse(numberNode.InnerText);
 
-                var footPrintNode = node.SelectSingleNode("safe:footPrint", manager);
+                var footPrintNode = measurementFrameNode.SelectSingleNode("safe:footPrint", manager);
                 measurementFrame.Footprint = footPrintNode.InnerText;
 
                 return measurementFrame;
@@ -314,11 +344,14 @@ namespace SharpSentinel.Parser.Parsers
 
         private static class AcquisitionPeriodParser
         {
-            public static AcquisitionPeriod Parse(XmlNode node, XmlNamespaceManager manager)
+            public static AcquisitionPeriod Parse([NotNull]XmlNode acquisitionPeriodNode, [NotNull]XmlNamespaceManager manager)
             {
+                Guard.NotNull(acquisitionPeriodNode, nameof(acquisitionPeriodNode));
+                Guard.NotNull(manager, nameof(manager));
+
                 var acquisitionPerid = new AcquisitionPeriod();
 
-                var dataNode = node.SelectSingleNode("metadataWrap/xmlData/safe:acquisitionPeriod", manager);
+                var dataNode = acquisitionPeriodNode.SelectSingleNode("metadataWrap/xmlData/safe:acquisitionPeriod", manager);
 
                 var startTimeNode = dataNode.SelectSingleNode("safe:startTime", manager);
                 acquisitionPerid.StartTime = DateTimeOffset.Parse(startTimeNode.InnerText);
@@ -338,11 +371,14 @@ namespace SharpSentinel.Parser.Parsers
 
         private static class GeneralProductInformationParser
         {
-            public static GeneralProductInformation Parse(XmlNode node, XmlNamespaceManager manager)
+            public static GeneralProductInformation Parse([NotNull]XmlNode generalProductInformationNode, [NotNull] XmlNamespaceManager manager)
             {
+                Guard.NotNull(generalProductInformationNode, nameof(generalProductInformationNode));
+                Guard.NotNull(manager, nameof(manager));
+
                 var generalProductInformation = new GeneralProductInformation();
 
-                var dataNode = node.SelectSingleNode("metadataWrap/xmlData/s1sarl1:standAloneProductInformation", manager);
+                var dataNode = generalProductInformationNode.SelectSingleNode("metadataWrap/xmlData/s1sarl1:standAloneProductInformation", manager);
 
                 var instrumentConfigurationIDNode = dataNode.SelectSingleNode("s1sarl1:instrumentConfigurationID", manager);
                 generalProductInformation.InstrumentConfigurationID = int.Parse(instrumentConfigurationIDNode.InnerText);
