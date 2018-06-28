@@ -66,7 +66,7 @@ namespace SharpSentinel.Parser.Parsers
 
                     var annotationFileLocation = annotationDataObject.GetFileInfoFromDataObject(baseDirectory);
                     var annotationChecksum = annotationDataObject.GetChecksumFromDataObject();
-                    var annotationRepId = annotationDataObject.GetAttributeValue("repID123");
+                    var annotationRepId = annotationDataObject.GetAttributeValue("repID");
 
                     switch (annotationRepId)
                     {
