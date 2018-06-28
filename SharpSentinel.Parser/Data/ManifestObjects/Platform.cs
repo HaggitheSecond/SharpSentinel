@@ -23,16 +23,13 @@ namespace SharpSentinel.Parser.Data.ManifestObjects
 
         /// <summary>
         /// Information related to the instrument on the platform to which acquired the data.
-
         /// </summary>
         public PlatformInstrument Instrument { get; set; }
 
         /// <summary>
-        ///   Information on the leap second applied to the product UTC
-        ///   timing. This element is only present if it was present in
-        ///   the input L0 product, and if so the leapSeconInformation
-        ///   information in the L0 product is copied into the L1/L2
-        ///   product.
+        /// Information on the leap second applied to the product UTC timing. This element is only present if it was present in
+        /// the input L0 product, and if so the leapSeconInformation information in the L0 product is copied into the L1/L2
+        /// product.
         /// </summary>
         public LeapSecondInformation LeapSecondInformation { get; set; }
     }

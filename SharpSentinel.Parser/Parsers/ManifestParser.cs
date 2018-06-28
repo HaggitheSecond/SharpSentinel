@@ -55,7 +55,7 @@ namespace SharpSentinel.Parser.Parsers
                     File = file
                 };
 
-                var allDataUnits = MeasurementDataUnitParser.Parse(informationPackageMap, dataObjectSection, manager, data.BaseDirectory);
+                var allDataUnits = MeasurementDataUnitParser.Parse(informationPackageMap, dataObjectSection, metaDataSection, manager, data.BaseDirectory);
                 data.MeasurementDataUnits = allDataUnits.Where(f => f.MeasurementDataUnitType == MeasurementDataUnitType.Measurement).ToList();
                 data.QuickLookDataUnit = allDataUnits.FirstOrDefault(f => f.MeasurementDataUnitType == MeasurementDataUnitType.QuickLook);
             }

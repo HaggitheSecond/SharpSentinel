@@ -13,7 +13,10 @@ namespace SharpSentinel.Parser.Data.ManifestObjects
         /// Raw XML of manifest.safe
         /// </summary>
         public string RawXML { get; set; }
-        
+
+        /// <summary>
+        /// Systemdata for the manifest.safe file
+        /// </summary>
         public FileInfo File { get; set; }
     }
 }
