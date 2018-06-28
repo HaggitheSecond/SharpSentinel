@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace SharpSentinel.Parser.Parsers
+namespace SharpSentinel.Parser.Data.S1
 {
     public class MeasurementDataUnit
     {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SharpSentinel.Parser.Data.S1;
 using SharpSentinel.Parser.Parsers;
 
 namespace SharpSentinel.Parser.Data

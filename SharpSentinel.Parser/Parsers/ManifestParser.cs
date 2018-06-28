@@ -6,6 +6,7 @@ using System.Xml;
 using SharpSentinel.Parser.Data;
 using SharpSentinel.Parser.Data.Internal;
 using SharpSentinel.Parser.Data.ManifestObjects;
+using SharpSentinel.Parser.Data.S1;
 using SharpSentinel.Parser.Helpers;
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable AssignNullToNotNullAttribute
