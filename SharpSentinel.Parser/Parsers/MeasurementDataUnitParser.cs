@@ -6,6 +6,7 @@ using JetBrains.Annotations;
 using SharpSentinel.Parser.Data.S1;
 using SharpSentinel.Parser.Extensions;
 using SharpSentinel.Parser.Helpers;
+using SharpSentinel.Parser.Parsers.Annotations;
 
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable AssignNullToNotNullAttribute
@@ -69,15 +70,15 @@ namespace SharpSentinel.Parser.Parsers
                     switch (annotationRepId)
                     {
                         case "s1Level1ProductSchema":
-                            measurementDataUnit.ProductAnnotation = AnnotationParser.ParseProductAnnotation(annotationFileLocation, annotationChecksum);
+                            measurementDataUnit.ProductAnnotation = ProductAnnotationParser.Parse(annotationFileLocation, annotationChecksum);
                             break;
 
                         case "s1Level1NoiseSchema":
-                            measurementDataUnit.NoiseAnnotation = AnnotationParser.ParseNoiseAnnotation(annotationFileLocation, annotationChecksum);
+                            measurementDataUnit.NoiseAnnotation = NoiseAnnotationParser.ParseNoiseAnnotation(annotationFileLocation, annotationChecksum);
                             break;
 
                         case "s1Level1CalibrationSchema":
-                            measurementDataUnit.CalibriationAnnotation = AnnotationParser.ParseCalibriationAnnotation(annotationFileLocation, annotationChecksum);
+                            measurementDataUnit.CalibriationAnnotation = CalibrationAnnotationParser.ParseCalibriationAnnotation(annotationFileLocation, annotationChecksum);
                             break;
 
                         default:
