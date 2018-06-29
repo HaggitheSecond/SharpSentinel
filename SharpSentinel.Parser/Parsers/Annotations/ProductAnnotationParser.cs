@@ -32,6 +32,8 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                 var document = new XmlDocument();
                 document.Load(fileStream);
 
+                productAnnotation.RawXML = document.InnerXml;
+
                 var productNode = document.SelectSingleNode("product");
 
                 productAnnotation.AdsHeader = AdsHeaderParser.Parse(productNode.SelectSingleNode("adsHeader"));

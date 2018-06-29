@@ -24,7 +24,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                 var document = new XmlDocument();
                 document.Load(fileStream);
 
-                var productNode = document.SelectSingleNode("product");
+                noiseAnnotation.RawXML = document.InnerXml;
 
             }
 

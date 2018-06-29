@@ -24,6 +24,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                 var document = new XmlDocument();
                 document.Load(fileStream);
 
+                calibrationAnnotation.RawXML = document.InnerXml;
             }
 
             return calibrationAnnotation;
