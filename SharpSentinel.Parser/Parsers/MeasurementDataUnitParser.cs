@@ -74,11 +74,11 @@ namespace SharpSentinel.Parser.Parsers
                             break;
 
                         case "s1Level1NoiseSchema":
-                            measurementDataUnit.NoiseAnnotation = NoiseAnnotationParser.ParseNoiseAnnotation(annotationFileLocation, annotationChecksum);
+                            measurementDataUnit.NoiseAnnotation = NoiseAnnotationParser.Parse(annotationFileLocation, annotationChecksum);
                             break;
 
                         case "s1Level1CalibrationSchema":
-                            measurementDataUnit.CalibriationAnnotation = CalibrationAnnotationParser.ParseCalibriationAnnotation(annotationFileLocation, annotationChecksum);
+                            measurementDataUnit.CalibriationAnnotation = CalibrationAnnotationParser.Parse(annotationFileLocation, annotationChecksum);
                             break;
 
                         default:

@@ -16,7 +16,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
 {
     public static class NoiseAnnotationParser
     {
-        public static NoiseAnnotation ParseNoiseAnnotation([NotNull]FileInfo fileInfo, [CanBeNull]Checksum checkSum)
+        public static NoiseAnnotation Parse([NotNull]FileInfo fileInfo, [CanBeNull]Checksum checkSum)
         {
             Guard.NotNullAndValidFileSystemInfo(fileInfo, nameof(fileInfo));
 
@@ -59,7 +59,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                 {
                     var noiseRangeVector = new NoiseRangeVector
                     {
-                        Values = new List<NoiseRangeVectorValues>()
+                        Values = new List<NoiseRangeVectorValue>()
                     };
 
                     noiseRangeVector.AzimuthTime = DateTimeOffset.Parse(currentNoiseRangeVectorNode.SelectSingleNode("azimuthTime").InnerText);
@@ -86,7 +86,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
 
                     for (var i = 0; i < allPixels.Count; i++)
                     {
-                        noiseRangeVector.Values.Add(new NoiseRangeVectorValues
+                        noiseRangeVector.Values.Add(new NoiseRangeVectorValue
                         {
                             Pixel = allPixels[i],
                             NoiseRangeLut = allNoiseRangeLut[i]
@@ -112,7 +112,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                 {
                     var noiseAzimuthVector = new NoiseAzimuthVector
                     {
-                        Values = new List<NoiseAzimuthVectorValues>()
+                        Values = new List<NoiseAzimuthVectorValue>()
                     };
 
                     noiseAzimuthVector.Swath = (SwathType)Enum.Parse(typeof(SwathType), currentNoiseAzimuthVectorNode.SelectSingleNode("swath").InnerText);
@@ -144,7 +144,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
 
                     for (var i = 0; i < allLines.Count; i++)
                     {
-                        noiseAzimuthVector.Values.Add(new NoiseAzimuthVectorValues
+                        noiseAzimuthVector.Values.Add(new NoiseAzimuthVectorValue
                         {
                             Line = allLines[i],
                             NoiseAzimuthLut = allNoiseAzimuthRangeLut[i]

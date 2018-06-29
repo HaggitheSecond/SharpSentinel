@@ -11,7 +11,7 @@ namespace SharpSentinel.Parser.Data.S1
         public FileInfo File { get; set; }
         
         /// <summary>
-        /// The checksum
+        /// The checksum included in the manifest.safe
         /// </summary>
         public Checksum Checksum { get; set; }
 
