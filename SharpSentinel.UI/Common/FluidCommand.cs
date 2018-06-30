@@ -41,7 +41,9 @@ namespace SharpSentinel.UI.Common
             this._noCursor = noCursor;
 
             if (withCancelCommand)
+#pragma warning disable 1998
                 this.CancelCommand = new FluidCommand(async _ => this.Cancel(), this.CanCancel, withCancelCommand: false);
+#pragma warning restore 1998
         }
         
         /// <summary>
@@ -86,7 +88,9 @@ namespace SharpSentinel.UI.Common
 
         public static FluidCommandBuilder Sync(Action execute)
         {
+#pragma warning disable 1998
             return Async(async () => execute());
+#pragma warning restore 1998
         }
 
         /// <summary>
