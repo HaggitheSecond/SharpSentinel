@@ -79,8 +79,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\FluidCommand.cs" />
     <Compile Include="Container\ServiceInstaller.cs" />
     <Compile Include="Container\ViewModelInstaller.cs" />
+    <Compile Include="Extensions\PropertyChangedExtensions.cs" />
     <Compile Include="Extensions\WindsorContainerExtensions.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\Window\IWindow.cs" />
