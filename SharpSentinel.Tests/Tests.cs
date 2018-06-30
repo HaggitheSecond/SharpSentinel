@@ -1,7 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SharpSentinel.Parser;
+using SharpSentinel.Parser.Data.S1;
+using SharpSentinel.Parser.Data.S1.Annotations;
+using SharpSentinel.Parser.Helpers;
 using SharpSentinel.Parser.Resources;
 
 namespace SharpSentinel.Tests
@@ -24,5 +28,24 @@ namespace SharpSentinel.Tests
         {
             var description = Abbreviations.GetDescription(Abbreviations.Abbreviation.IPF);
         }
+
+        [TestMethod]
+        public void GetPropertyDescription()
+        {
+            var temp = new CalibriationAnnotation
+            {
+                AdsHeader = new AdsHeader()
+            };
+
+            if (MethodHelper.TryGetPropertyDescription(temp.AdsHeader.GetType(), "ProductType", out var description) == false)
+            {
+
+            }
+
+            if(MethodHelper.TryGetPropertyDescriptions(temp.GetType(), out var output))
+            {
+
+            }
+         }
     }
 }

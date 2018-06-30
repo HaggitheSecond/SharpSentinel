@@ -34,7 +34,6 @@ namespace SharpSentinel.Parser.Data.ManifestObjects
 
         /// <summary>
         /// Metadata describing the processing steps performed on the auxiliary data.
-
         /// </summary>
         public Processing Processing { get; set; }
 
