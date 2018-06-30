@@ -1,11 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using MahApps.Metro.Controls;
 
 namespace SharpSentinel.UI.Services.Window
 {
     public class WindowManager : Caliburn.Micro.WindowManager
     {
+        protected override System.Windows.Window EnsureWindow(object model, object view, bool isDialog)
+        {
+            return new MetroWindow
+            {
+                Content = view
+            };
+        }
+
         protected override System.Windows.Window CreateWindow(object rootModel, bool isDialog, object context, IDictionary<string, object> settings)
         {
             var window = base.CreateWindow(rootModel, isDialog, context, null);
