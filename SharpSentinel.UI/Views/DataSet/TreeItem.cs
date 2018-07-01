@@ -68,7 +68,12 @@ namespace SharpSentinel.UI.Views.DataSet
             if (data != null)
                 this.Data = data;
 
-            switch (fileInfo.Extension)
+            this.SetIconByFileExtension(fileInfo.Extension);
+        }
+
+        private void SetIconByFileExtension(string fileExtension)
+        {
+            switch (fileExtension)
             {
                 case ".xml":
                     this.Icon = PackIconModernKind.PageXml;
@@ -76,12 +81,16 @@ namespace SharpSentinel.UI.Views.DataSet
                 case ".tiff":
                     this.Icon = PackIconModernKind.Database;
                     break;
+                case ".safe":
+                    this.Icon = PackIconModernKind.PageXml;
+                    break;
+                case ".pdf":
+                    this.Icon = PackIconModernKind.PageFilePdfTag;
+                    break;
                 default:
                     this.Icon = PackIconModernKind.Page;
                     break;
             }
-
-
         }
     }
 
