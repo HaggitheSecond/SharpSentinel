@@ -126,6 +126,7 @@
       <DependentUpon>LoadDataSetView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataSet\LoadDataSetViewModel.cs" />
+    <Compile Include="Views\DataSet\TreeItem.cs" />
     <Compile Include="Views\Settings\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>

@@ -39,18 +39,52 @@ namespace SharpSentinel.UI.Views.DataSet
 
         public void GenerateTree()
         {
-            this.TreeView.Items.Add(this.GenerateTreeItem(this.ViewModel.MainItem));
+            var mainItem = this.GenerateTreeItem(this.ViewModel.MainItem);
+            mainItem.IsExpanded = true;
+            this.TreeView.Items.Add(mainItem);
         }
 
-        private TreeViewItem GenerateTreeItem(FileTreeItem item)
+        private TreeViewItem GenerateTreeItem(TreeItem item)
         {
             var treeItem = new TreeViewItem
             {
                 Header = this.GenerateHeader(item),
-                IsExpanded = true
+                ContextMenu = new ContextMenu
+                {
+                    Items =
+                    {
+                        new MenuItem
+                        {
+                            Command = item.OpenFileCommand,
+                            Header = new StackPanel
+                            {
+                                Orientation = Orientation.Horizontal,
+                                Children =
+                                {
+                                    new PackIconModern
+                                    {
+                                        Kind = item is DirectoryTreeItem ? PackIconModernKind.FolderOpen : PackIconModernKind.Fullscreen,
+                                        Margin = new Thickness(0, 0, 5, 0)
+                                    },
+                                    new TextBlock
+                                    {
+                                        Text = "Open"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                ToolTip = new ToolTip
+                {
+                    Content = string.IsNullOrWhiteSpace(item.ToolTip) ? item.DisplayText : item.ToolTip
+                }
             };
 
-            foreach (var currentChild in item.Children)
+            if (!(item is DirectoryTreeItem directoryItem))
+                return treeItem;
+
+            foreach (var currentChild in directoryItem.Children)
             {
                 treeItem.Items.Add(this.GenerateTreeItem(currentChild));
             }
@@ -58,7 +92,7 @@ namespace SharpSentinel.UI.Views.DataSet
             return treeItem;
         }
 
-        private StackPanel GenerateHeader(FileTreeItem item)
+        private StackPanel GenerateHeader(TreeItem item)
         {
             var textBlock = new TextBlock();
             var textBinding = new Binding("DisplayText") { Source = item };

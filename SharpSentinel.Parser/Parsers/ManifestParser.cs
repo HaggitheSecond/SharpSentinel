@@ -69,6 +69,10 @@ namespace SharpSentinel.Parser.Parsers
                 data.QuickLookDataUnit = allDataUnits.FirstOrDefault(f => f.MeasurementDataUnitType == MeasurementDataUnitType.QuickLook);
             }
 
+            var reportFile = directoryInfo.GetFiles().FirstOrDefault(f => f.Name.Contains("report") && f.Extension == ".pdf");
+            if (reportFile != null)
+                data.ReportFile = reportFile;
+
             return data;
         }
 

@@ -41,7 +41,7 @@
             </Grid.ColumnDefinitions>
             <controls:IconButton Grid.Column="0"
                                  Text="Cancel"
-                                 Icon="Cancel"
+                                 Icon="Close"
                                  Command="{Binding CancelCommand}" />
             <controls:IconButton Grid.Column="1"
                                  Text="Load data set"
