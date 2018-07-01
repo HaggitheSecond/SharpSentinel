@@ -28,20 +28,27 @@ namespace SharpSentinel.UI.Views.DataSet
 
             this.DataContextChanged += (sender, args) =>
             {
-                this.ViewModel.PropertyChanged += (sende2r, args2) =>
+                this.ViewModel.PropertyChanged += (propertyChangedSender, propertyChangedArgs) =>
                 {
-                    if (args2.PropertyName == nameof(this.ViewModel.MainItem) && this.ViewModel.MainItem != null)
-                        this.GenerateTree();
+                    if (propertyChangedArgs.PropertyName == nameof(this.ViewModel.MainItem))
+                        this.UpdateTree();
 
                 };
             };
         }
 
-        public void GenerateTree()
+        public void UpdateTree()
         {
-            var mainItem = this.GenerateTreeItem(this.ViewModel.MainItem);
-            mainItem.IsExpanded = true;
-            this.TreeView.Items.Add(mainItem);
+            if (this.ViewModel.MainItem != null)
+            {
+                var mainItem = this.GenerateTreeItem(this.ViewModel.MainItem);
+                mainItem.IsExpanded = true;
+                this.TreeView.Items.Add(mainItem);
+            }
+            else
+            {
+                this.TreeView.Items.Clear();
+            }
         }
 
         private TreeViewItem GenerateTreeItem(TreeItem item)

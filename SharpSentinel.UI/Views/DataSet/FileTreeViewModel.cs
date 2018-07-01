@@ -37,6 +37,11 @@ namespace SharpSentinel.UI.Views.DataSet
             this.MainItem = item;
         }
 
+        public void Clear()
+        {
+            this.MainItem = null;
+        }
+
         private TreeItem GenerateS1Tree(S1Data data)
         {
             var allDirectories = new DirectoryInfo(data.BaseDirectory.FullName).GetDirectories();

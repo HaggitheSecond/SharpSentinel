@@ -11,6 +11,7 @@ namespace SharpSentinel.UI.Views
         private readonly IWindowManager _windowManager;
 
         private FileTreeViewModel _fileTreeViewModel;
+        private bool _isDataSetLoaded;
 
         public FileTreeViewModel FileTreeViewModel
         {
@@ -18,7 +19,14 @@ namespace SharpSentinel.UI.Views
             set { this.Set(ref this._fileTreeViewModel, value); }
         }
 
+        public bool IsDataSetLoaded
+        {
+            get { return this._isDataSetLoaded; }
+            set { this.Set(ref this._isDataSetLoaded, value); }
+        }
+
         public FluidCommand LoadDataSetCommand { get; }
+        public FluidCommand CloseDataSetCommand { get; }
         public FluidCommand OpenSettingsCommand { get; }
         public FluidCommand OpenAboutCommand { get; }
 
@@ -29,6 +37,7 @@ namespace SharpSentinel.UI.Views
             this.DisplayName = "SharpSentinel - Data Viewer";
 
             this.LoadDataSetCommand = FluidCommand.Sync(this.OpenDataSet);
+            this.CloseDataSetCommand = FluidCommand.Sync(this.ClostDataSet);
             this.OpenSettingsCommand = FluidCommand.Sync(this.OpenSettings);
             this.OpenAboutCommand = FluidCommand.Sync(this.OpenAbout);
 
@@ -51,9 +60,18 @@ namespace SharpSentinel.UI.Views
 
             if (this._windowManager.ShowDialog(viewModel).GetValueOrDefault() == false)
                 return;
+            
+            this.FileTreeViewModel.Clear();
+            this.FileTreeViewModel.Initialize(viewModel.LoadedData);
 
-            var data = viewModel.LoadedData;
-            this.FileTreeViewModel.Initialize(data);
+            this.IsDataSetLoaded = true;
+        }
+
+
+        private void ClostDataSet()
+        {
+            this.FileTreeViewModel.Clear();
+            this.IsDataSetLoaded = false;
         }
     }
 }
