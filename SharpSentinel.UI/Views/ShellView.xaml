@@ -5,13 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SharpSentinel.UI.Views"
              xmlns:controls="clr-namespace:SharpSentinel.UI.Controls"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:dataSet="clr-namespace:SharpSentinel.UI.Views.DataSet"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance local:ShellViewModel}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition/>
+            <RowDefinition />
         </Grid.RowDefinitions>
         <ToolBarTray Grid.Row="0">
             <ToolBar>
@@ -28,6 +30,13 @@
                                      Command="{Binding OpenAboutCommand}" />
             </ToolBar>
         </ToolBarTray>
-        <Separator Grid.Row="1"/>
+        <Separator Grid.Row="1" />
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <dataSet:FileTreeView DataContext="{Binding FileTreeViewModel}"/>
+        </Grid>
     </Grid>
 </UserControl>

@@ -10,10 +10,16 @@ namespace SharpSentinel.UI.Views
     {
         private readonly IWindowManager _windowManager;
 
+        private FileTreeViewModel _fileTreeViewModel;
+
+        public FileTreeViewModel FileTreeViewModel
+        {
+            get { return this._fileTreeViewModel; }
+            set { this.Set(ref this._fileTreeViewModel, value); }
+        }
+
         public FluidCommand LoadDataSetCommand { get; }
-
         public FluidCommand OpenSettingsCommand { get; }
-
         public FluidCommand OpenAboutCommand { get; }
 
         public ShellViewModel(IWindowManager windowManager)
@@ -25,6 +31,8 @@ namespace SharpSentinel.UI.Views
             this.LoadDataSetCommand = FluidCommand.Sync(this.OpenDataSet);
             this.OpenSettingsCommand = FluidCommand.Sync(this.OpenSettings);
             this.OpenAboutCommand = FluidCommand.Sync(this.OpenAbout);
+
+            this.FileTreeViewModel = IoC.Get<FileTreeViewModel>();
         }
 
         private void OpenAbout()
@@ -44,7 +52,8 @@ namespace SharpSentinel.UI.Views
             if (this._windowManager.ShowDialog(viewModel).GetValueOrDefault() == false)
                 return;
 
-
+            var data = viewModel.LoadedData;
+            this.FileTreeViewModel.Initialize(data);
         }
     }
 }

@@ -5,15 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SharpSentinel.UI.Views.DataSet"
              xmlns:controls="clr-namespace:SharpSentinel.UI.Controls"
-             xmlns:converters="clr-namespace:SharpSentinel.UI.Converters"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance local:LoadDataSetViewModel}"
              x:Name="Root">
-    <UserControl.Resources>
-        <converters:MaxWidthConverter x:Key="MaxWidthConverter"/>
-    </UserControl.Resources>
     <Grid Margin="5,5,5,5">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
