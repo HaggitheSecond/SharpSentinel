@@ -28,7 +28,7 @@ namespace SharpSentinel.UI.Views.DataSet
 
         public WindowSettings GetWindowSettings()
         {
-            return WindowSettings.Standard();
+            return WindowSettings.Standard().Resize(ResizeMode.NoResize).Width(500).Height(200).SizeToContent(SizeToContent.Manual);
         }
     }
 }

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.IconPacks;
+using SharpSentinel.UI.Resources;
 using SharpSentinel.UI.Services.Window;
 
 namespace SharpSentinel.UI.Views

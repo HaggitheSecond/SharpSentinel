@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using SharpSentinel.UI.Resources;
 
 namespace SharpSentinel.UI.Services.Window
 {
@@ -20,7 +21,8 @@ namespace SharpSentinel.UI.Services.Window
                 .Resize(ResizeMode.CanResizeWithGrip)
                 .WindowStartupLocation(System.Windows.WindowStartupLocation.CenterScreen)
                 .MinHeight(200)
-                .MinWidth(100);
+                .MinWidth(100)
+                .Icon(ResourceLinks.Satellite);
         }
 
         public WindowSettings Icon(Uri path)

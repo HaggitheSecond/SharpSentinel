@@ -4,25 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SharpSentinel.UI.Views"
-             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:controls="clr-namespace:SharpSentinel.UI.Controls"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance local:ShellViewModel}">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <ToolBar Grid.Row="0">
-            <controls:IconButton Icon="FolderOpen"
-                                 Text="Open data set"
-                                 Command="{Binding LoadDataSetCommand}"/>
-            <controls:IconButton Icon="Settings"
-                                 Text="Settings"
-                                 Command="{Binding OpenSettingsCommand}" />
-            <controls:IconButton Icon="Book"
-                                 Text="About"
-                                 Command="{Binding OpenAboutCommand}" />
-        </ToolBar>
+        <ToolBarTray Grid.Row="0">
+            <ToolBar>
+                <controls:IconButton Icon="FolderOpen"
+                                     Text="Open data set"
+                                     Command="{Binding LoadDataSetCommand}" />
+            </ToolBar>
+            <ToolBar>
+                <controls:IconButton Icon="Settings"
+                                     Text="Settings"
+                                     Command="{Binding OpenSettingsCommand}" />
+                <controls:IconButton Icon="Book"
+                                     Text="About"
+                                     Command="{Binding OpenAboutCommand}" />
+            </ToolBar>
+        </ToolBarTray>
+        <Separator Grid.Row="1"/>
     </Grid>
 </UserControl>

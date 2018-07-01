@@ -1,12 +1,56 @@
 ﻿<UserControl x:Class="SharpSentinel.UI.Views.DataSet.LoadDataSetView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SharpSentinel.UI.Views.DataSet"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             xmlns:controls="clr-namespace:SharpSentinel.UI.Controls"
+             xmlns:converters="clr-namespace:SharpSentinel.UI.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance local:LoadDataSetViewModel}"
+             x:Name="Root">
+    <UserControl.Resources>
+        <converters:MaxWidthConverter x:Key="MaxWidthConverter"/>
+    </UserControl.Resources>
+    <Grid Margin="5,5,5,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid  Grid.Row="0"
+               VerticalAlignment="Top"
+               HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*"
+                                  x:Name="TextBoxColumn" />
+            </Grid.ColumnDefinitions>
+            <controls:IconButton Text="Select Folder"
+                                 Icon="Folder"
+                                 Command="{Binding SelectFolderCommand}"
+                                 Grid.Column="0" />
+            <TextBox x:Name="SelectedFolderTextBox"
+                     HorizontalAlignment="Stretch"
+                     Margin="10,0,0,0"
+                     Text="{Binding SelectedFolderPath}"
+                     IsReadOnly="True"
+                     Grid.Column="1" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <controls:IconButton Grid.Column="0"
+                                 Text="Cancel"
+                                 Icon="Cancel"
+                                 Command="{Binding CancelCommand}" />
+            <controls:IconButton Grid.Column="1"
+                                 Text="Load data set"
+                                 Icon="Check"
+                                 Command="{Binding LoadDataSetCommand}" />
+        </Grid>
     </Grid>
 </UserControl>

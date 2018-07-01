@@ -29,17 +29,22 @@ namespace SharpSentinel.UI.Views
 
         private void OpenAbout()
         {
-            this._windowManager.ShowWindow(IoC.Get<AboutViewModel>());
+            this._windowManager.ShowDialog(IoC.Get<AboutViewModel>());
         }
 
         private void OpenSettings()
         {
-            this._windowManager.ShowWindow(IoC.Get<SettingsViewModel>());
+            this._windowManager.ShowDialog(IoC.Get<SettingsViewModel>());
         }
 
         private void OpenDataSet()
         {
-            this._windowManager.ShowWindow(IoC.Get<LoadDataSetViewModel>());
+            var viewModel = IoC.Get<LoadDataSetViewModel>();
+
+            if (this._windowManager.ShowDialog(viewModel).GetValueOrDefault() == false)
+                return;
+
+
         }
     }
 }
