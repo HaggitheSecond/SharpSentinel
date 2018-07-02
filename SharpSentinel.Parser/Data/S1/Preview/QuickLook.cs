@@ -4,7 +4,7 @@ using SharpSentinel.Parser.Data.Interfaces;
 
 namespace SharpSentinel.Parser.Data.S1.Preview
 {
-    public class QuickLookDataUnit : IFile
+    public class QuickLook : IImageFile
     {
         /// <summary>
         /// Systemdata for the file

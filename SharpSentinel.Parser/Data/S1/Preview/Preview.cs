@@ -5,7 +5,7 @@
         /// <summary>
         /// The preredered .png quicklook
         /// </summary>
-        public QuickLookDataUnit QuickLook { get; set; }
+        public QuickLook QuickLook { get; set; }
 
         /// <summary>
         /// The .kml mapoverlay 

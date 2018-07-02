@@ -32,12 +32,12 @@ namespace SharpSentinel.Parser.Parsers
 
         public static class QuickLookParser
         {
-            public static QuickLookDataUnit Parse([NotNull] XmlNode informationPackageMap,
+            public static QuickLook Parse([NotNull] XmlNode informationPackageMap,
                 [NotNull] XmlNode dataObjectSection,
                 [NotNull] XmlNamespaceManager manager,
                 [NotNull] DirectoryInfo baseDirectory)
             {
-                var quickLook = new QuickLookDataUnit();
+                var quickLook = new QuickLook();
 
                 var quickLookNode = informationPackageMap
                     .SelectSingleNodeThrowIfNull("xfdu:contentUnit/xfdu:contentUnit[@repID='s1Level1QuickLookSchema']", manager);
