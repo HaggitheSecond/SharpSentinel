@@ -34,7 +34,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                 var document = new XmlDocument();
                 document.Load(fileStream);
 
-                noiseAnnotation.RawXML = document.InnerXml;
+                noiseAnnotation.RawXml = document.InnerXml;
 
                 var noiseNode = document.SelectSingleNodeThrowIfNull("noise");
 

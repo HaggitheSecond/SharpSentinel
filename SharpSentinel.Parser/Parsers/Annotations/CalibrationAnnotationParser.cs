@@ -33,7 +33,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
 
                 var calibrationNode = document.SelectSingleNodeThrowIfNull("calibration");
 
-                calibrationAnnotation.RawXML = document.InnerXml;
+                calibrationAnnotation.RawXml = document.InnerXml;
 
                 calibrationAnnotation.AdsHeader = AdsHeaderParser.Parse(calibrationNode.SelectSingleNodeThrowIfNull("adsHeader"));
                 calibrationAnnotation.AbsoluteCalibrationConstant = double.Parse(calibrationNode.SelectSingleNodeThrowIfNull("calibrationInformation/absoluteCalibrationConstant").InnerText);
