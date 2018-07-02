@@ -76,7 +76,7 @@ namespace SharpSentinel.Parser.Parsers
                     }
                 }
 
-                var facilityNode = processingNode.SelectSingleNodeThrowIfNull("safe:facility", manager);
+                var facilityNode = processingNode.SelectSingleNode("safe:facility", manager);
                 if (facilityNode != null)
                     processing.Facility = ParseFacility(facilityNode, manager);
 
@@ -211,7 +211,7 @@ namespace SharpSentinel.Parser.Parsers
                     platform.Instrument.Swaths.Add((SwathType)Enum.Parse(typeof(SwathType), currentSwathNode.InnerText));
                 }
 
-                var extensionNode = dataNode.SelectSingleNodeThrowIfNull("safe:extension", manager);
+                var extensionNode = dataNode.SelectSingleNode("safe:extension", manager);
 
                 var leapSecondInformationNode = extensionNode?.SelectSingleNodeThrowIfNull("s1:leapSecondInformation", manager);
 
@@ -330,7 +330,7 @@ namespace SharpSentinel.Parser.Parsers
                 
                 var measurementFrame = new MeasurementFrame();
 
-                var numberNode = measurementFrameNode.SelectSingleNodeThrowIfNull("safe:number", manager);
+                var numberNode = measurementFrameNode.SelectSingleNode("safe:number", manager);
 
                 if (numberNode != null)
                     measurementFrame.Number = int.Parse(numberNode.InnerText);
