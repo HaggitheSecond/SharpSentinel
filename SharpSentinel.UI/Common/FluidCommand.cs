@@ -23,7 +23,7 @@ namespace SharpSentinel.UI.Common
             get { return _isExecuting; }
             private set
             {
-                if (this.SetProperty(ref this._isExecuting, value))
+                if (this.Set(ref this._isExecuting, value))
                 {
                     CommandManager.InvalidateRequerySuggested();
                 }
