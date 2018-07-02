@@ -53,7 +53,7 @@ namespace SharpSentinel.Parser.Parsers
                 data.Manifest = new Manifest
                 {
                     MetaData = MetaDataParser.Parse(metaDataSection, manager),
-                    RawXML = document.InnerXml,
+                    RawXml = document.InnerXml,
                     File = file
                 };
 
