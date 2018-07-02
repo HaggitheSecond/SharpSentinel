@@ -37,6 +37,15 @@ namespace SharpSentinel.UI.Controls
             get { return (string) GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
+
+        public static readonly DependencyProperty LabelWidthProperty = DependencyProperty.Register(
+            nameof(LabelWidth), typeof(double), typeof(TextBlockWithLabel), new PropertyMetadata(default(double)));
+
+        public double LabelWidth
+        {
+            get { return (double) GetValue(LabelWidthProperty); }
+            set { SetValue(LabelWidthProperty, value); }
+        }
         
         public TextBlockWithLabel()
         {

@@ -1,0 +1,199 @@
+﻿<UserControl x:Class="SharpSentinel.UI.Views.DataSet.Details.MetaDataTreeItemDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SharpSentinel.UI.Views.DataSet.Details"
+             xmlns:controls="clr-namespace:SharpSentinel.UI.Controls"
+             xmlns:manifestObjects="clr-namespace:SharpSentinel.Parser.Data.ManifestObjects;assembly=SharpSentinel.Parser"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance local:MetaDataTreeItemDetailViewModel}">
+    <UserControl.Resources>
+        <Style x:Key="TextBlockWithLabelStyle"
+               TargetType="controls:TextBlockWithLabel">
+            <Setter Property="LabelWidth"
+                    Value="200" />
+            <Setter Property="Margin"
+                    Value="10,0,0,0" />
+        </Style>
+        <Style x:Key="TextBlockLabelStyle"
+               TargetType="TextBlock">
+            <Setter Property="Margin"
+                    Value="2,5,0,0" />
+            <Setter Property="FontSize"
+                    Value="14" />
+        </Style>
+    </UserControl.Resources>
+    <ScrollViewer>
+        <StackPanel CanVerticallyScroll="True">
+            <Expander Header="Platform"
+                      IsExpanded="False"
+                      Margin="0,2,0,0">
+                <StackPanel>
+                    <controls:TextBlockWithLabel Label="Nssdc identifier"
+                                                 Value="{Binding MetaData.Platform.NssdcIdentifier}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Family name"
+                                                 Value="{Binding MetaData.Platform.FamilyName}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Number"
+                                                 Value="{Binding MetaData.Platform.Number}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <TextBlock Text="Instrument"
+                               Style="{StaticResource TextBlockLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Name"
+                                                 Value="{Binding MetaData.Platform.Instrument.Name}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Abbreviation"
+                                                 Value="{Binding MetaData.Platform.Instrument.Abbreviation}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Mode"
+                                                 Value="{Binding MetaData.Platform.Instrument.Mode}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Swaths"
+                                   Margin="10,0,10,0"
+                                   FontWeight="Bold"
+                                   Width="200"
+                                   VerticalAlignment="Center" />
+                        <ComboBox ItemsSource="{Binding MetaData.Platform.Instrument.Swaths}"
+                                  Width="200"
+                                  SelectedIndex="0" />
+                    </StackPanel>
+                    <TextBlock Text="Leap second"
+                               Style="{StaticResource TextBlockLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Time of occurence (UTC)"
+                                                 Value="{Binding MetaData.Platform.LeapSecondInformation.UtcTimeOfOccurence}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Sign"
+                                                 Value="{Binding MetaData.Platform.LeapSecondInformation.Sign}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                </StackPanel>
+            </Expander>
+            <Expander Header="Acquisition period"
+                      IsExpanded="False"
+                      Margin="0,2,0,0">
+                <StackPanel>
+                    <controls:TextBlockWithLabel Label="Starttime (UTC)"
+                                                 Value="{Binding MetaData.AcquisitionPeriod.StartTime}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Starttime ANX"
+                                                 Value="{Binding MetaData.AcquisitionPeriod.StartTimeANX}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Stoptime (UTC)"
+                                                 Value="{Binding MetaData.AcquisitionPeriod.StopTime}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Stoptime ANX"
+                                                 Value="{Binding MetaData.AcquisitionPeriod.StopTimeANX}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                </StackPanel>
+            </Expander>
+            <Expander Header="Measurement orbit reference"
+                      IsExpanded="False"
+                      Margin="0,2,0,0">
+                <StackPanel>
+                    <controls:TextBlockWithLabel Label="Orbit number start"
+                                                 Value="{Binding MetaData.MeasurementOrbitReference.OrbitNumberStart}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Orbit number stop"
+                                                 Value="{Binding MetaData.MeasurementOrbitReference.OrbitNumberStop}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Relative orbit number start"
+                                                 Value="{Binding MetaData.MeasurementOrbitReference.RelativeOrbitNumberStart}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Relative orbit number stop"
+                                                 Value="{Binding MetaData.MeasurementOrbitReference.RelativeOrbitNumberStop}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Cyclenumber"
+                                                 Value="{Binding MetaData.MeasurementOrbitReference.CycleNumber}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Phase identifier"
+                                                 Value="{Binding MetaData.MeasurementOrbitReference.PhaseIdentifier}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Pass"
+                                                 Value="{Binding MetaData.MeasurementOrbitReference.Pass}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Ascending node time"
+                                                 Value="{Binding MetaData.MeasurementOrbitReference.AscendingNodeTime}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                </StackPanel>
+            </Expander>
+            <Expander Header="Measurement frame set"
+                      IsExpanded="False"
+                      Margin="0,2,0,0">
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding MetaData.MeasurementFrameSet.MeasurementFrames}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="manifestObjects:MeasurementFrame">
+                                <StackPanel>
+                                    <controls:TextBlockWithLabel Label="Number"
+                                                                 Value="{Binding Number}"
+                                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                                    <controls:TextBlockWithLabel Label="Footprint"
+                                                                 Value="{Binding Footprint}"
+                                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Expander>
+            <Expander Header="General product information"
+                      IsExpanded="False"
+                      Margin="0,2,0,0">
+                <StackPanel>
+                    <controls:TextBlockWithLabel Label="Instrument configuration ID"
+                                                 Value="{Binding MetaData.GeneralProductInformation.InstrumentConfigurationID}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Mission data take ID"
+                                                 Value="{Binding MetaData.GeneralProductInformation.MissionDataTakeID}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Transmitter receiver polirasations"
+                                   Margin="10,0,10,0"
+                                   FontWeight="Bold"
+                                   Width="200" 
+                                   VerticalAlignment="Center"/>
+                        <ComboBox ItemsSource="{Binding MetaData.GeneralProductInformation.TransmitterReceiverPolarisation}"
+                                  Width="200"
+                                  SelectedIndex="0" />
+                    </StackPanel>
+                    <controls:TextBlockWithLabel Label="Product class"
+                                                 Value="{Binding MetaData.GeneralProductInformation.ProductClass}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Product class description"
+                                                 Value="{Binding MetaData.GeneralProductInformation.ProductClassDescription}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Product composition"
+                                                 Value="{Binding MetaData.GeneralProductInformation.ProductComposition}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Product type"
+                                                 Value="{Binding MetaData.GeneralProductInformation.ProductType}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Product timeliness category"
+                                                 Value="{Binding MetaData.GeneralProductInformation.ProductTimelinessCategory}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Slide product flag"
+                                                 Value="{Binding MetaData.GeneralProductInformation.SlideProductFlag}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Segement start time"
+                                                 Value="{Binding MetaData.GeneralProductInformation.SegementStartTime}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Slice number"
+                                                 Value="{Binding MetaData.GeneralProductInformation.SliceNumber}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                    <controls:TextBlockWithLabel Label="Total slices"
+                                                 Value="{Binding MetaData.GeneralProductInformation.TotalSlices}"
+                                                 Style="{StaticResource TextBlockWithLabelStyle}" />
+                </StackPanel>
+            </Expander>
+            <Expander  Header="General product information"
+                       IsExpanded="False"
+                       Margin="0,2,0,0">
+
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

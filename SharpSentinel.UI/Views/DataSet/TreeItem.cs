@@ -3,6 +3,7 @@ using System.IO;
 using Caliburn.Micro;
 using MahApps.Metro.IconPacks;
 using SharpSentinel.Parser.Data.Interfaces;
+using SharpSentinel.Parser.Data.ManifestObjects;
 using SharpSentinel.Parser.Data.S1;
 using SharpSentinel.UI.Common;
 using SharpSentinel.UI.Views.DataSet.Details;
@@ -107,6 +108,13 @@ namespace SharpSentinel.UI.Views.DataSet
                 var imageViewModel = IoC.Get<ImageTreeItemDetailViewModel>();
                 imageViewModel.Initialize(imageFile.File.FullName);
                 this.DetailPages.Add(imageViewModel);
+            }
+
+            if (this.Data is Manifest manifest)
+            {
+                var metaDataViewModel = IoC.Get<MetaDataTreeItemDetailViewModel>();
+                metaDataViewModel.Initialize(manifest.MetaData);
+                this.DetailPages.Add(metaDataViewModel);
             }
         }
 

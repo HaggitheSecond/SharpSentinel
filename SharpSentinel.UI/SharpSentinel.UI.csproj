@@ -152,6 +152,10 @@
       <DependentUpon>ImageTreeItemDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataSet\Details\ImageTreeItemDetailViewModel.cs" />
+    <Compile Include="Views\DataSet\Details\MetaDataTreeItemDetailView.xaml.cs">
+      <DependentUpon>MetaDataTreeItemDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataSet\Details\MetaDataTreeItemDetailViewModel.cs" />
     <Compile Include="Views\DataSet\Details\NoDetailsTreeItemDetailView.xaml.cs">
       <DependentUpon>NoDetailsTreeItemDetailView.xaml</DependentUpon>
     </Compile>
@@ -229,6 +233,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DataSet\Details\ImageTreeItemDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataSet\Details\MetaDataTreeItemDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
