@@ -22,7 +22,10 @@ namespace SharpSentinel.UI.Views.DataSet.Details
     {
         public XmlTreeItemDetailView()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+
+            // This should be done in xaml but no idea how to properly work with large xml files in richtextbox in the first place
+            this.RichTextBox.Document.PageWidth = 2000;
         }
     }
 }

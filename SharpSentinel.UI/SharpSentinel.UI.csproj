@@ -127,6 +127,7 @@
     </Compile>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Extensions\PropertyChangedExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\WindsorContainerExtensions.cs" />
     <Compile Include="Resources\ResourceLinks.cs" />
     <Compile Include="Services\IService.cs" />
