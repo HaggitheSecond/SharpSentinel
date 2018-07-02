@@ -145,6 +145,10 @@
       <DependentUpon>FileTreeItemDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataSet\Details\FileTreeItemDetailViewModel.cs" />
+    <Compile Include="Views\DataSet\Details\HtmlTreeItemDetailView.xaml.cs">
+      <DependentUpon>HtmlTreeItemDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataSet\Details\HtmlTreeItemDetailViewModel.cs" />
     <Compile Include="Views\DataSet\Details\NoDetailsTreeItemDetailView.xaml.cs">
       <DependentUpon>NoDetailsTreeItemDetailView.xaml</DependentUpon>
     </Compile>
@@ -214,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DataSet\Details\FileTreeItemDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataSet\Details\HtmlTreeItemDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

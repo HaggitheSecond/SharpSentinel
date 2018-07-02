@@ -55,6 +55,11 @@ namespace SharpSentinel.UI.Views.DataSet
             measurementDirectory.Children.AddRange(data.MeasurementDataUnits.Select(f => new FileTreeItem(f.File, f)));
 
             var previewDirectory = new DirectoryTreeItem(allDirectories.First(f => f.Name == "preview"));
+
+            previewDirectory.Children.Add(new FileTreeItem(data.Preview.MapOverlay.File, data.Preview.MapOverlay));
+            previewDirectory.Children.Add(new FileTreeItem(data.Preview.ProductPreview.File, data.Preview.ProductPreview));
+            previewDirectory.Children.Add(new FileTreeItem(data.Preview.QuickLook.File, data.Preview.QuickLook));
+
             var supportDirectory = new DirectoryTreeItem(allDirectories.First(f => f.Name == "support"));
 
             var annotationDirectory = new DirectoryTreeItem(allDirectories.First(f => f.Name == "annotation"));

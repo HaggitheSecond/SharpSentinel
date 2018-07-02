@@ -94,6 +94,13 @@ namespace SharpSentinel.UI.Views.DataSet
                 xmlViewModel.Intialize(xmlFile.RawXml, xmlFile.File.Name);
                 this.DetailPages.Add(xmlViewModel);
             }
+
+            if (this.Data is IHtmlFile htmlFile)
+            {
+                var htmlViewModel = IoC.Get<HtmlTreeItemDetailViewModel>();
+                htmlViewModel.Initialize(htmlFile.HtmlText);
+                this.DetailPages.Add(htmlViewModel);
+            }
         }
 
         private void SetIconByFileExtension(string fileExtension)
@@ -111,6 +118,13 @@ namespace SharpSentinel.UI.Views.DataSet
                     break;
                 case ".pdf":
                     this.Icon = PackIconModernKind.PageFilePdfTag;
+                    break;
+                case ".html":
+                    this.Icon = PackIconModernKind.PageCode;
+                    break;
+                case ".png":
+                case ".jpg":
+                    this.Icon = PackIconModernKind.PageImage;
                     break;
                 default:
                     this.Icon = PackIconModernKind.Page;

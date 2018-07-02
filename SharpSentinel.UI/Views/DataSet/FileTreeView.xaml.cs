@@ -136,7 +136,7 @@ namespace SharpSentinel.UI.Views.DataSet
             if (!(treeViewItem.DataContext is TreeItem treeItem))
                 return;
 
-            var orderedItems = treeItem.DetailPages.OrderBy(f => f.OrderPriority);
+            var orderedItems = treeItem.DetailPages.OrderByDescending(f => f.OrderPriority);
             var details = orderedItems.Select(this.GenerateDetailPage).ToList();
             
             if(details.Count == 0)
