@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using SharpSentinel.Parser.Data.Common;
+using SharpSentinel.Parser.Data.Interfaces;
 using SharpSentinel.Parser.Data.S1.Annotations;
 
 namespace SharpSentinel.Parser.Data.S1
 {
-    public class CalibriationAnnotation
+    public class CalibriationAnnotation : IFile, IXmlFile
     {
         /// <summary>
         /// Systemdata for the .xml file
@@ -15,7 +16,7 @@ namespace SharpSentinel.Parser.Data.S1
         /// <summary>
         /// The raw XML from the file
         /// </summary>
-        public string RawXML { get; set; }
+        public string RawXml { get; set; }
 
         /// <summary>
         /// The checksum included in the manifest.safe

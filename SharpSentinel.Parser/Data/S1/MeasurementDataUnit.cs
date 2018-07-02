@@ -1,9 +1,10 @@
 ﻿using System.IO;
 using SharpSentinel.Parser.Data.Common;
+using SharpSentinel.Parser.Data.Interfaces;
 
 namespace SharpSentinel.Parser.Data.S1
 {
-    public class MeasurementDataUnit
+    public class MeasurementDataUnit : IFile
     {
         /// <summary>
         /// Systemdata for the .tiff file

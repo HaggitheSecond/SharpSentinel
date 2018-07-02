@@ -1,8 +1,9 @@
 ﻿using System.IO;
+using SharpSentinel.Parser.Data.Interfaces;
 
 namespace SharpSentinel.Parser.Data.ManifestObjects
 {
-    public class Manifest
+    public class Manifest : IFile, IXmlFile
     {
         /// <summary>
         /// Metadata saved directly in the manifest
@@ -12,7 +13,7 @@ namespace SharpSentinel.Parser.Data.ManifestObjects
         /// <summary>
         /// Raw XML of manifest.safe
         /// </summary>
-        public string RawXML { get; set; }
+        public string RawXml { get; set; }
 
         /// <summary>
         /// Systemdata for the manifest.safe file
