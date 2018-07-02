@@ -23,7 +23,7 @@ namespace SharpSentinel.Parser.Parsers
             Guard.NotNull(manager, nameof(manager));
             Guard.NotNullAndValidFileSystemInfo(baseDirectory, nameof(baseDirectory));
 
-            var measurementDataUnitNodes = informationPackageMap.SelectNodes("xfdu:contentUnit/xfdu:contentUnit[@unitType='Measurement Data Unit']", manager);
+            var measurementDataUnitNodes = informationPackageMap.SelectNodes("xfdu:contentUnit/xfdu:contentUnit[@repID='s1Level1MeasurementSchema']", manager);
 
             return measurementDataUnitNodes.Cast<XmlNode>().Select(f => ParseMeasurementUnit(f, metaDataSection, dataObjectSection, manager, baseDirectory)).ToList();
         }
@@ -35,66 +35,48 @@ namespace SharpSentinel.Parser.Parsers
             var objectIdNode = informationPackageMapNode.SelectSingleNodeThrowIfNull("dataObjectPointer");
             var objectId = objectIdNode.GetAttributeValue("dataObjectID");
             var measurementDataObject = dataObjectSection.SelectedDataObjectById(objectId);
-
-            var repId = informationPackageMapNode
+            
+            var dmdIds = informationPackageMapNode
                 .Attributes
-                .GetNamedItem("repID")
-                .Value;
+                .GetNamedItem("dmdID")
+                .Value
+                .Split(' ')
+                .Where(f => string.IsNullOrWhiteSpace(f) == false);
 
-            if (repId == "s1Level1MeasurementSchema")
+            foreach (var currentDmdId in dmdIds)
             {
-                measurementDataUnit.MeasurementDataUnitType = MeasurementDataUnitType.Measurement;
-
-                var dmdIds = informationPackageMapNode
+                var annotationMetaDataNode = metaDataSection.SelectMetaDataObjectByID(currentDmdId);
+                var annotationDataObjectId = annotationMetaDataNode
+                    .SelectSingleNodeThrowIfNull("dataObjectPointer")
                     .Attributes
-                    .GetNamedItem("dmdID")
-                    .Value
-                    .Split(' ')
-                    .Where(f => string.IsNullOrWhiteSpace(f) == false);
+                    .GetNamedItem("dataObjectID")
+                    .Value;
 
-                foreach (var currentDmdId in dmdIds)
+                var annotationDataObject = dataObjectSection.SelectedDataObjectById(annotationDataObjectId);
+
+                var annotationFileLocation = annotationDataObject.GetFileInfoFromDataObject(baseDirectory);
+                var annotationChecksum = annotationDataObject.GetChecksumFromDataObject();
+                var annotationRepId = annotationDataObject.GetAttributeValue("repID");
+
+                switch (annotationRepId)
                 {
-                    var annotationMetaDataNode = metaDataSection.SelectMetaDataObjectByID(currentDmdId);
-                    var annotationDataObjectId = annotationMetaDataNode
-                        .SelectSingleNodeThrowIfNull("dataObjectPointer")
-                        .Attributes
-                        .GetNamedItem("dataObjectID")
-                        .Value;
+                    case "s1Level1ProductSchema":
+                        measurementDataUnit.ProductAnnotation = ProductAnnotationParser.Parse(annotationFileLocation, annotationChecksum);
+                        break;
 
-                    var annotationDataObject = dataObjectSection.SelectedDataObjectById(annotationDataObjectId);
+                    case "s1Level1NoiseSchema":
+                        measurementDataUnit.NoiseAnnotation = NoiseAnnotationParser.Parse(annotationFileLocation, annotationChecksum);
+                        break;
 
-                    var annotationFileLocation = annotationDataObject.GetFileInfoFromDataObject(baseDirectory);
-                    var annotationChecksum = annotationDataObject.GetChecksumFromDataObject();
-                    var annotationRepId = annotationDataObject.GetAttributeValue("repID");
+                    case "s1Level1CalibrationSchema":
+                        measurementDataUnit.CalibriationAnnotation = CalibrationAnnotationParser.Parse(annotationFileLocation, annotationChecksum);
+                        break;
 
-                    switch (annotationRepId)
-                    {
-                        case "s1Level1ProductSchema":
-                            measurementDataUnit.ProductAnnotation = ProductAnnotationParser.Parse(annotationFileLocation, annotationChecksum);
-                            break;
-
-                        case "s1Level1NoiseSchema":
-                            measurementDataUnit.NoiseAnnotation = NoiseAnnotationParser.Parse(annotationFileLocation, annotationChecksum);
-                            break;
-
-                        case "s1Level1CalibrationSchema":
-                            measurementDataUnit.CalibriationAnnotation = CalibrationAnnotationParser.Parse(annotationFileLocation, annotationChecksum);
-                            break;
-
-                        default:
-                            throw new XmlException($"Unknown repID: {annotationRepId}");
-                    }
+                    default:
+                        throw new XmlException($"Unknown repID: {annotationRepId}");
                 }
             }
-            else if (repId == "s1Level1QuickLookSchema")
-            {
-                measurementDataUnit.MeasurementDataUnitType = MeasurementDataUnitType.QuickLook;
-            }
-            else
-            {
-                throw new XmlException("Found unknown measurement data unit");
-            }
-            
+
             measurementDataUnit.File = measurementDataObject.GetFileInfoFromDataObject(baseDirectory);
             measurementDataUnit.Checksum = measurementDataObject.GetChecksumFromDataObject();
 

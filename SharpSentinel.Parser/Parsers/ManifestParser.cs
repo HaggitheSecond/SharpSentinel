@@ -49,7 +49,7 @@ namespace SharpSentinel.Parser.Parsers
                 var informationPackageMap = document.SelectSingleNodeThrowIfNull("xfdu:XFDU/informationPackageMap", manager);
                 var metaDataSection = document.SelectSingleNodeThrowIfNull("xfdu:XFDU/metadataSection", manager);
                 var dataObjectSection = document.SelectSingleNodeThrowIfNull("xfdu:XFDU/dataObjectSection", manager);
-                
+
                 data.Manifest = new Manifest
                 {
                     MetaData = MetaDataParser.Parse(metaDataSection, manager),
@@ -57,14 +57,17 @@ namespace SharpSentinel.Parser.Parsers
                     File = file
                 };
 
-                var allDataUnits = MeasurementDataUnitParser.Parse(informationPackageMap, metaDataSection, dataObjectSection, manager, data.BaseDirectory);
-                data.MeasurementDataUnits = allDataUnits.Where(f => f.MeasurementDataUnitType == MeasurementDataUnitType.Measurement).ToList();
-                data.QuickLookDataUnit = allDataUnits.FirstOrDefault(f => f.MeasurementDataUnitType == MeasurementDataUnitType.QuickLook);
+                data.MeasurementDataUnits = MeasurementDataUnitParser.Parse(informationPackageMap, metaDataSection, dataObjectSection, manager, data.BaseDirectory);
+                data.Preview = PreviewParser.Parse(informationPackageMap, dataObjectSection, manager, data.BaseDirectory);
             }
+
 
             var reportFile = directoryInfo.GetFiles().FirstOrDefault(f => f.Name.Contains("report") && f.Extension == ".pdf");
             if (reportFile != null)
-                data.ReportFile = reportFile;
+                data.ReportFile = new ReportFile
+                {
+                    File = reportFile
+                };
 
             return data;
         }
