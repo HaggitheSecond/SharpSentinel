@@ -101,6 +101,13 @@ namespace SharpSentinel.UI.Views.DataSet
                 htmlViewModel.Initialize(htmlFile.HtmlText);
                 this.DetailPages.Add(htmlViewModel);
             }
+
+            if (this.Data is IImageFile imageFile)
+            {
+                var imageViewModel = IoC.Get<ImageTreeItemDetailViewModel>();
+                imageViewModel.Initialize(imageFile.File.FullName);
+                this.DetailPages.Add(imageViewModel);
+            }
         }
 
         private void SetIconByFileExtension(string fileExtension)

@@ -126,7 +126,6 @@
       <DependentUpon>TextBlockWithLabel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Extensions\PropertyChangedExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\WindsorContainerExtensions.cs" />
     <Compile Include="Resources\ResourceLinks.cs" />
@@ -149,6 +148,10 @@
       <DependentUpon>HtmlTreeItemDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataSet\Details\HtmlTreeItemDetailViewModel.cs" />
+    <Compile Include="Views\DataSet\Details\ImageTreeItemDetailView.xaml.cs">
+      <DependentUpon>ImageTreeItemDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataSet\Details\ImageTreeItemDetailViewModel.cs" />
     <Compile Include="Views\DataSet\Details\NoDetailsTreeItemDetailView.xaml.cs">
       <DependentUpon>NoDetailsTreeItemDetailView.xaml</DependentUpon>
     </Compile>
@@ -222,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DataSet\Details\HtmlTreeItemDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DataSet\Details\ImageTreeItemDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

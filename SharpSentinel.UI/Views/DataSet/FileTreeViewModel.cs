@@ -79,7 +79,7 @@ namespace SharpSentinel.UI.Views.DataSet
                     previewDirectory,
                     supportDirectory,
                     new FileTreeItem(data.Manifest.File, data.Manifest),
-                    new FileTreeItem(data.ReportFile.File)
+                    new FileTreeItem(data.ReportFile.File, data.ReportFile)
                 }
             };
 

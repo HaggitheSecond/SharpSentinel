@@ -5,7 +5,7 @@ namespace SharpSentinel.UI.Views.DataSet.Details
     public class NoDetailsTreeItemDetailViewModel : TreeItemDetail
     {
         public NoDetailsTreeItemDetailViewModel() 
-            : base(0, PackIconModernKind.PageQuestion)
+            : base(2, PackIconModernKind.PageQuestion)
         {
         }
 
