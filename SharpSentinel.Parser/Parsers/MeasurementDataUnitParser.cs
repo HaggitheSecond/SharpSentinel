@@ -32,7 +32,7 @@ namespace SharpSentinel.Parser.Parsers
         {
             var measurementDataUnit = new MeasurementDataUnit();
 
-            var objectIdNode = informationPackageMapNode.SelectSingleNode("dataObjectPointer");
+            var objectIdNode = informationPackageMapNode.SelectSingleNodeThrowIfNull("dataObjectPointer");
             var objectId = objectIdNode.GetAttributeValue("dataObjectID");
             var measurementDataObject = dataObjectSection.SelectedDataObjectById(objectId);
 
@@ -56,7 +56,7 @@ namespace SharpSentinel.Parser.Parsers
                 {
                     var annotationMetaDataNode = metaDataSection.SelectMetaDataObjectByID(currentDmdId);
                     var annotationDataObjectId = annotationMetaDataNode
-                        .SelectSingleNode("dataObjectPointer")
+                        .SelectSingleNodeThrowIfNull("dataObjectPointer")
                         .Attributes
                         .GetNamedItem("dataObjectID")
                         .Value;

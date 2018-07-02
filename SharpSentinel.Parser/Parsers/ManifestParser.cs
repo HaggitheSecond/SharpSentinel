@@ -8,6 +8,7 @@ using SharpSentinel.Parser.Data;
 using SharpSentinel.Parser.Data.Internal;
 using SharpSentinel.Parser.Data.ManifestObjects;
 using SharpSentinel.Parser.Data.S1;
+using SharpSentinel.Parser.Extensions;
 using SharpSentinel.Parser.Helpers;
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable AssignNullToNotNullAttribute
@@ -45,18 +46,10 @@ namespace SharpSentinel.Parser.Parsers
 
                 var manager = GenerateManager(document);
 
-                var informationPackageMap = document.SelectSingleNode("xfdu:XFDU/informationPackageMap", manager);
-                if (informationPackageMap == null)
-                    throw new XmlException("Missing informationPackageMap in manifest.safe");
-
-                var metaDataSection = document.SelectSingleNode("xfdu:XFDU/metadataSection", manager);
-                if (metaDataSection == null)
-                    throw new XmlException("Missing metadataSection in manifest.safe");
-
-                var dataObjectSection = document.SelectSingleNode("xfdu:XFDU/dataObjectSection", manager);
-                if (dataObjectSection == null)
-                    throw new XmlException("Missing dataObjectSection in manifest.safe");
-
+                var informationPackageMap = document.SelectSingleNodeThrowIfNull("xfdu:XFDU/informationPackageMap", manager);
+                var metaDataSection = document.SelectSingleNodeThrowIfNull("xfdu:XFDU/metadataSection", manager);
+                var dataObjectSection = document.SelectSingleNodeThrowIfNull("xfdu:XFDU/dataObjectSection", manager);
+                
                 data.Manifest = new Manifest
                 {
                     MetaData = MetaDataParser.Parse(metaDataSection, manager),

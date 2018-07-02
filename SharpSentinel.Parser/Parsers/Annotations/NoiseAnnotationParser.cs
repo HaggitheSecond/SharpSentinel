@@ -8,6 +8,7 @@ using SharpSentinel.Parser.Data.Common;
 using SharpSentinel.Parser.Data.ManifestObjects;
 using SharpSentinel.Parser.Data.S1;
 using SharpSentinel.Parser.Data.S1.Annotations;
+using SharpSentinel.Parser.Extensions;
 using SharpSentinel.Parser.Helpers;
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable AssignNullToNotNullAttribute
@@ -35,11 +36,11 @@ namespace SharpSentinel.Parser.Parsers.Annotations
 
                 noiseAnnotation.RawXML = document.InnerXml;
 
-                var noiseNode = document.SelectSingleNode("noise");
+                var noiseNode = document.SelectSingleNodeThrowIfNull("noise");
 
-                noiseAnnotation.AdsHeader = AdsHeaderParser.Parse(noiseNode.SelectSingleNode("adsHeader"));
-                noiseAnnotation.NoiseRangeVectors = NoiseRangeVectorParser.Parse(noiseNode.SelectSingleNode("noiseRangeVectorList"));
-                noiseAnnotation.NoiseAzimuthVectors = NoiseAzimuthVectorParser.Parse(noiseNode.SelectSingleNode("noiseAzimuthVectorList"));
+                noiseAnnotation.AdsHeader = AdsHeaderParser.Parse(noiseNode.SelectSingleNodeThrowIfNull("adsHeader"));
+                noiseAnnotation.NoiseRangeVectors = NoiseRangeVectorParser.Parse(noiseNode.SelectSingleNodeThrowIfNull("noiseRangeVectorList"));
+                noiseAnnotation.NoiseAzimuthVectors = NoiseAzimuthVectorParser.Parse(noiseNode.SelectSingleNodeThrowIfNull("noiseAzimuthVectorList"));
             }
 
             return noiseAnnotation;
@@ -62,11 +63,11 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                         Values = new List<NoiseRangeVectorValue>()
                     };
 
-                    noiseRangeVector.AzimuthTime = DateTimeOffset.Parse(currentNoiseRangeVectorNode.SelectSingleNode("azimuthTime").InnerText);
-                    noiseRangeVector.Line = int.Parse(currentNoiseRangeVectorNode.SelectSingleNode("line").InnerText);
+                    noiseRangeVector.AzimuthTime = DateTimeOffset.Parse(currentNoiseRangeVectorNode.SelectSingleNodeThrowIfNull("azimuthTime").InnerText);
+                    noiseRangeVector.Line = int.Parse(currentNoiseRangeVectorNode.SelectSingleNodeThrowIfNull("line").InnerText);
 
                     var allPixels = currentNoiseRangeVectorNode
-                        .SelectSingleNode("pixel")
+                        .SelectSingleNodeThrowIfNull("pixel")
                         .InnerText
                         .Split(' ')
                         .Where(f => string.IsNullOrWhiteSpace(f) == false)
@@ -74,7 +75,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                         .ToList();
 
                     var allNoiseRangeLut = currentNoiseRangeVectorNode
-                        .SelectSingleNode("noiseRangeLut")
+                        .SelectSingleNodeThrowIfNull("noiseRangeLut")
                         .InnerText
                         .Split(' ')
                         .Where(f => string.IsNullOrWhiteSpace(f) == false)
@@ -115,16 +116,16 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                         Values = new List<NoiseAzimuthVectorValue>()
                     };
 
-                    noiseAzimuthVector.Swath = (SwathType)Enum.Parse(typeof(SwathType), currentNoiseAzimuthVectorNode.SelectSingleNode("swath").InnerText);
+                    noiseAzimuthVector.Swath = (SwathType)Enum.Parse(typeof(SwathType), currentNoiseAzimuthVectorNode.SelectSingleNodeThrowIfNull("swath").InnerText);
 
-                    noiseAzimuthVector.FirstAzimuthLine = int.Parse(currentNoiseAzimuthVectorNode.SelectSingleNode("firstAzimuthLine")?.InnerText);
-                    noiseAzimuthVector.FirstRangeSample = int.Parse(currentNoiseAzimuthVectorNode.SelectSingleNode("firstRangeSample")?.InnerText);
+                    noiseAzimuthVector.FirstAzimuthLine = int.Parse(currentNoiseAzimuthVectorNode.SelectSingleNodeThrowIfNull("firstAzimuthLine")?.InnerText);
+                    noiseAzimuthVector.FirstRangeSample = int.Parse(currentNoiseAzimuthVectorNode.SelectSingleNodeThrowIfNull("firstRangeSample")?.InnerText);
 
-                    noiseAzimuthVector.LastAzimuthLine = int.Parse(currentNoiseAzimuthVectorNode.SelectSingleNode("lastAzimuthLine")?.InnerText);
-                    noiseAzimuthVector.LastRangeSample = int.Parse(currentNoiseAzimuthVectorNode.SelectSingleNode("lastRangeSample")?.InnerText);
+                    noiseAzimuthVector.LastAzimuthLine = int.Parse(currentNoiseAzimuthVectorNode.SelectSingleNodeThrowIfNull("lastAzimuthLine")?.InnerText);
+                    noiseAzimuthVector.LastRangeSample = int.Parse(currentNoiseAzimuthVectorNode.SelectSingleNodeThrowIfNull("lastRangeSample")?.InnerText);
 
                     var allLines = currentNoiseAzimuthVectorNode
-                        .SelectSingleNode("line")
+                        .SelectSingleNodeThrowIfNull("line")
                         .InnerText
                         .Split(' ')
                         .Where(f => string.IsNullOrWhiteSpace(f) == false)
@@ -132,7 +133,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                         .ToList();
 
                     var allNoiseAzimuthRangeLut = currentNoiseAzimuthVectorNode
-                        .SelectSingleNode("noiseAzimuthLut")
+                        .SelectSingleNodeThrowIfNull("noiseAzimuthLut")
                         .InnerText
                         .Split(' ')
                         .Where(f => string.IsNullOrWhiteSpace(f) == false)

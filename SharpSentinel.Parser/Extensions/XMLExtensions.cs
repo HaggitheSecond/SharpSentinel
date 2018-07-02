@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
+using System.Xml.XPath;
 using JetBrains.Annotations;
 using SharpSentinel.Parser.Data.Common;
 using SharpSentinel.Parser.Exceptions.XML;
@@ -10,14 +11,26 @@ namespace SharpSentinel.Parser.Extensions
 {
     public static class XMLExtensions
     {
+        public static XmlNode SelectSingleNodeThrowIfNull(this XmlNode self, string xPath, XmlNamespaceManager namespaceManager = null)
+        {
+            Guard.NotNull(self, nameof(self));
+
+            var foundNode = self.SelectSingleNode(xPath, namespaceManager);
+
+            if(foundNode == null)
+                throw new XmlException($"Could not find node: {xPath} in {self.Name}");
+
+            return foundNode;
+        }
+
         public static XmlNode SelectMetaDataObjectByID(this XmlNode self, string id)
         {
-            return self.SelectSingleNode($"metadataObject[@ID='{id}']");
+            return self.SelectSingleNodeThrowIfNull($"metadataObject[@ID='{id}']");
         }
 
         public static XmlNode SelectedDataObjectById(this XmlNode self, string id)
         {
-            return self.SelectSingleNode($"dataObject[@ID='{id}']");
+            return self.SelectSingleNodeThrowIfNull($"dataObject[@ID='{id}']");
         }
 
         public static string GetAttributeValue(this XmlNode self, string attributeName)
@@ -41,7 +54,7 @@ namespace SharpSentinel.Parser.Extensions
             Guard.NotNullAndValidFileSystemInfo(baseDirectory, nameof(baseDirectory));
 
             var fileLocationNode = dataObjectNode
-                .SelectSingleNode("byteStream/fileLocation");
+                .SelectSingleNodeThrowIfNull("byteStream/fileLocation");
 
             if (fileLocationNode == null)
                 throw new XmlNodeNotFoundException();
@@ -76,7 +89,7 @@ namespace SharpSentinel.Parser.Extensions
             var checksum = new Checksum();
 
             var checksumNode = dataObjectNode
-                .SelectSingleNode("byteStream/checksum");
+                .SelectSingleNodeThrowIfNull("byteStream/checksum");
 
             if (checksumNode == null)
                 throw new XmlException();

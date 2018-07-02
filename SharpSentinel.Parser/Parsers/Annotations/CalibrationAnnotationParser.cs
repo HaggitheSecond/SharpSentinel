@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using SharpSentinel.Parser.Data.Common;
 using SharpSentinel.Parser.Data.S1;
 using SharpSentinel.Parser.Data.S1.Annotations;
+using SharpSentinel.Parser.Extensions;
 using SharpSentinel.Parser.Helpers;
 // ReSharper disable PossibleNullReferenceException
 
@@ -30,13 +31,13 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                 var document = new XmlDocument();
                 document.Load(fileStream);
 
-                var calibrationNode = document.SelectSingleNode("calibration");
+                var calibrationNode = document.SelectSingleNodeThrowIfNull("calibration");
 
                 calibrationAnnotation.RawXML = document.InnerXml;
 
-                calibrationAnnotation.AdsHeader = AdsHeaderParser.Parse(calibrationNode.SelectSingleNode("adsHeader"));
-                calibrationAnnotation.AbsoluteCalibrationConstant = double.Parse(calibrationNode.SelectSingleNode("calibrationInformation/absoluteCalibrationConstant").InnerText);
-                calibrationAnnotation.CalibrationVectors = CalibrationVectorParser.Parse(calibrationNode.SelectSingleNode("calibrationVectorList"));
+                calibrationAnnotation.AdsHeader = AdsHeaderParser.Parse(calibrationNode.SelectSingleNodeThrowIfNull("adsHeader"));
+                calibrationAnnotation.AbsoluteCalibrationConstant = double.Parse(calibrationNode.SelectSingleNodeThrowIfNull("calibrationInformation/absoluteCalibrationConstant").InnerText);
+                calibrationAnnotation.CalibrationVectors = CalibrationVectorParser.Parse(calibrationNode.SelectSingleNodeThrowIfNull("calibrationVectorList"));
             }
 
             return calibrationAnnotation;
@@ -59,11 +60,11 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                         Values = new List<CalibratinoVectorValue>()
                     };
 
-                    calibrationVector.AzimuthTime = DateTimeOffset.Parse(currentCalibrationVectorNode.SelectSingleNode("azimuthTime").InnerText);
-                    calibrationVector.Line = int.Parse(currentCalibrationVectorNode.SelectSingleNode("line").InnerText);
+                    calibrationVector.AzimuthTime = DateTimeOffset.Parse(currentCalibrationVectorNode.SelectSingleNodeThrowIfNull("azimuthTime").InnerText);
+                    calibrationVector.Line = int.Parse(currentCalibrationVectorNode.SelectSingleNodeThrowIfNull("line").InnerText);
 
                     var allPixels = currentCalibrationVectorNode
-                        .SelectSingleNode("pixel")
+                        .SelectSingleNodeThrowIfNull("pixel")
                         .InnerText
                         .Split(' ')
                         .Where(f => string.IsNullOrWhiteSpace(f) == false)
@@ -71,7 +72,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                         .ToList();
 
                     var allSigmaNoughts = currentCalibrationVectorNode
-                        .SelectSingleNode("sigmaNought")
+                        .SelectSingleNodeThrowIfNull("sigmaNought")
                         .InnerText
                         .Split(' ')
                         .Where(f => string.IsNullOrWhiteSpace(f) == false)
@@ -79,7 +80,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                         .ToList();
                     
                     var allBetaNoughts = currentCalibrationVectorNode
-                        .SelectSingleNode("betaNought")
+                        .SelectSingleNodeThrowIfNull("betaNought")
                         .InnerText
                         .Split(' ')
                         .Where(f => string.IsNullOrWhiteSpace(f) == false)
@@ -87,7 +88,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                         .ToList();
 
                     var allGammas = currentCalibrationVectorNode
-                        .SelectSingleNode("gamma")
+                        .SelectSingleNodeThrowIfNull("gamma")
                         .InnerText
                         .Split(' ')
                         .Where(f => string.IsNullOrWhiteSpace(f) == false)
@@ -95,7 +96,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
                         .ToList();
 
                     var allDns = currentCalibrationVectorNode
-                        .SelectSingleNode("dn")
+                        .SelectSingleNodeThrowIfNull("dn")
                         .InnerText
                         .Split(' ')
                         .Where(f => string.IsNullOrWhiteSpace(f) == false)

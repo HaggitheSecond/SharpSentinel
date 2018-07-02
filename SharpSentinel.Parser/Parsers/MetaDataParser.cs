@@ -49,7 +49,7 @@ namespace SharpSentinel.Parser.Parsers
                 Guard.NotNull(processingNode, nameof(processingNode));
                 Guard.NotNull(manager, nameof(manager));
 
-                var dataNode = processingNode.SelectSingleNode("metadataWrap/xmlData/safe:processing", manager);
+                var dataNode = processingNode.SelectSingleNodeThrowIfNull("metadataWrap/xmlData/safe:processing", manager);
                 return ParseProcessing(dataNode, manager);
             }
 
@@ -76,7 +76,7 @@ namespace SharpSentinel.Parser.Parsers
                     }
                 }
 
-                var facilityNode = processingNode.SelectSingleNode("safe:facility", manager);
+                var facilityNode = processingNode.SelectSingleNodeThrowIfNull("safe:facility", manager);
                 if (facilityNode != null)
                     processing.Facility = ParseFacility(facilityNode, manager);
 
@@ -184,24 +184,24 @@ namespace SharpSentinel.Parser.Parsers
 
                 var platform = new Platform { Instrument = new PlatformInstrument(), LeapSecondInformation = new LeapSecondInformation() };
 
-                var dataNode = platformNode.SelectSingleNode("metadataWrap/xmlData/safe:platform", manager);
+                var dataNode = platformNode.SelectSingleNodeThrowIfNull("metadataWrap/xmlData/safe:platform", manager);
 
-                var nssdcIdentifierNode = dataNode.SelectSingleNode("safe:nssdcIdentifier", manager);
+                var nssdcIdentifierNode = dataNode.SelectSingleNodeThrowIfNull("safe:nssdcIdentifier", manager);
                 platform.NssdcIdentifier = nssdcIdentifierNode.InnerText;
 
-                var familyNameNode = dataNode.SelectSingleNode("safe:familyName", manager);
+                var familyNameNode = dataNode.SelectSingleNodeThrowIfNull("safe:familyName", manager);
                 platform.FamilyName = familyNameNode.InnerText;
 
-                var numberNode = dataNode.SelectSingleNode("safe:number", manager);
+                var numberNode = dataNode.SelectSingleNodeThrowIfNull("safe:number", manager);
                 platform.Number = numberNode.InnerText;
 
-                var instrumentNode = dataNode.SelectSingleNode("safe:instrument", manager);
+                var instrumentNode = dataNode.SelectSingleNodeThrowIfNull("safe:instrument", manager);
 
-                var instrumentFamilyNameNode = instrumentNode.SelectSingleNode("safe:familyName", manager);
+                var instrumentFamilyNameNode = instrumentNode.SelectSingleNodeThrowIfNull("safe:familyName", manager);
                 platform.Instrument.Name = instrumentFamilyNameNode.InnerText;
                 platform.Instrument.Abbreviation = instrumentFamilyNameNode.Attributes[0].InnerText;
 
-                var instrumentModeNode = instrumentNode.SelectSingleNode("safe:extension/s1sarl1:instrumentMode/s1sarl1:mode", manager);
+                var instrumentModeNode = instrumentNode.SelectSingleNodeThrowIfNull("safe:extension/s1sarl1:instrumentMode/s1sarl1:mode", manager);
                 platform.Instrument.Mode = (InstrumentModeType)Enum.Parse(typeof(InstrumentModeType), instrumentModeNode.InnerText);
 
                 var swathNodes = instrumentNode.SelectNodes("safe:extension/s1sarl1:instrumentMode/s1sarl1:swath", manager);
@@ -211,16 +211,16 @@ namespace SharpSentinel.Parser.Parsers
                     platform.Instrument.Swaths.Add((SwathType)Enum.Parse(typeof(SwathType), currentSwathNode.InnerText));
                 }
 
-                var extensionNode = dataNode.SelectSingleNode("safe:extension", manager);
+                var extensionNode = dataNode.SelectSingleNodeThrowIfNull("safe:extension", manager);
 
-                var leapSecondInformationNode = extensionNode?.SelectSingleNode("s1:leapSecondInformation", manager);
+                var leapSecondInformationNode = extensionNode?.SelectSingleNodeThrowIfNull("s1:leapSecondInformation", manager);
 
                 if (leapSecondInformationNode != null)
                 {
-                    var utcTimeOfOccurrenceNode = leapSecondInformationNode.SelectSingleNode("s1:utcTimeOfOccurrence", manager);
+                    var utcTimeOfOccurrenceNode = leapSecondInformationNode.SelectSingleNodeThrowIfNull("s1:utcTimeOfOccurrence", manager);
                     platform.LeapSecondInformation.UtcTimeOfOccurence = DateTimeOffset.Parse(utcTimeOfOccurrenceNode.InnerText);
 
-                    var signNode = leapSecondInformationNode.SelectSingleNode("s1:sign", manager);
+                    var signNode = leapSecondInformationNode.SelectSingleNodeThrowIfNull("s1:sign", manager);
 
                     switch (signNode.InnerText)
                     {
@@ -246,7 +246,7 @@ namespace SharpSentinel.Parser.Parsers
 
                 var measurementOrbitReference = new MeasurementOrbitReference();
 
-                var dataNode = measurementOrbitReferenceNode.SelectSingleNode("metadataWrap/xmlData/safe:orbitReference", manager);
+                var dataNode = measurementOrbitReferenceNode.SelectSingleNodeThrowIfNull("metadataWrap/xmlData/safe:orbitReference", manager);
 
                 var orbitNumberNodes = dataNode.SelectNodes("safe:orbitNumber", manager);
 
@@ -286,16 +286,16 @@ namespace SharpSentinel.Parser.Parsers
                     }
                 }
 
-                var cycleNumberNode = dataNode.SelectSingleNode("safe:cycleNumber", manager);
+                var cycleNumberNode = dataNode.SelectSingleNodeThrowIfNull("safe:cycleNumber", manager);
                 measurementOrbitReference.CycleNumber = int.Parse(cycleNumberNode.InnerText);
 
-                var phaseIdentifierNode = dataNode.SelectSingleNode("safe:phaseIdentifier", manager);
+                var phaseIdentifierNode = dataNode.SelectSingleNodeThrowIfNull("safe:phaseIdentifier", manager);
                 measurementOrbitReference.PhaseIdentifier = int.Parse(phaseIdentifierNode.InnerText);
 
-                var passNode = dataNode.SelectSingleNode("safe:extension/s1:orbitProperties/s1:pass", manager);
+                var passNode = dataNode.SelectSingleNodeThrowIfNull("safe:extension/s1:orbitProperties/s1:pass", manager);
                 measurementOrbitReference.Pass = (PassType)Enum.Parse(typeof(PassType), passNode.InnerText);
 
-                var ascendingNodeTimeNode = dataNode.SelectSingleNode("safe:extension/s1:orbitProperties/s1:ascendingNodeTime", manager);
+                var ascendingNodeTimeNode = dataNode.SelectSingleNodeThrowIfNull("safe:extension/s1:orbitProperties/s1:ascendingNodeTime", manager);
 
                 if (ascendingNodeTimeNode != null)
                     measurementOrbitReference.AscendingNodeTime = DateTimeOffset.Parse(ascendingNodeTimeNode.InnerText);
@@ -330,12 +330,12 @@ namespace SharpSentinel.Parser.Parsers
                 
                 var measurementFrame = new MeasurementFrame();
 
-                var numberNode = measurementFrameNode.SelectSingleNode("safe:number", manager);
+                var numberNode = measurementFrameNode.SelectSingleNodeThrowIfNull("safe:number", manager);
 
                 if (numberNode != null)
                     measurementFrame.Number = int.Parse(numberNode.InnerText);
 
-                var footPrintNode = measurementFrameNode.SelectSingleNode("safe:footPrint", manager);
+                var footPrintNode = measurementFrameNode.SelectSingleNodeThrowIfNull("safe:footPrint", manager);
                 measurementFrame.Footprint = footPrintNode.InnerText;
 
                 return measurementFrame;
@@ -351,18 +351,18 @@ namespace SharpSentinel.Parser.Parsers
 
                 var acquisitionPerid = new AcquisitionPeriod();
 
-                var dataNode = acquisitionPeriodNode.SelectSingleNode("metadataWrap/xmlData/safe:acquisitionPeriod", manager);
+                var dataNode = acquisitionPeriodNode.SelectSingleNodeThrowIfNull("metadataWrap/xmlData/safe:acquisitionPeriod", manager);
 
-                var startTimeNode = dataNode.SelectSingleNode("safe:startTime", manager);
+                var startTimeNode = dataNode.SelectSingleNodeThrowIfNull("safe:startTime", manager);
                 acquisitionPerid.StartTime = DateTimeOffset.Parse(startTimeNode.InnerText);
-                var stopTimeNode = dataNode.SelectSingleNode("safe:stopTime", manager);
+                var stopTimeNode = dataNode.SelectSingleNodeThrowIfNull("safe:stopTime", manager);
                 acquisitionPerid.StopTime = DateTimeOffset.Parse(stopTimeNode.InnerText);
 
-                var timeAnxNode = dataNode.SelectSingleNode("safe:extension/s1:timeANX", manager);
+                var timeAnxNode = dataNode.SelectSingleNodeThrowIfNull("safe:extension/s1:timeANX", manager);
 
-                var startTimeANXNode = timeAnxNode.SelectSingleNode("s1:startTimeANX", manager);
+                var startTimeANXNode = timeAnxNode.SelectSingleNodeThrowIfNull("s1:startTimeANX", manager);
                 acquisitionPerid.StartTimeANX = float.Parse(startTimeANXNode.InnerText);
-                var stopTimeANXNode = timeAnxNode.SelectSingleNode("s1:stopTimeANX", manager);
+                var stopTimeANXNode = timeAnxNode.SelectSingleNodeThrowIfNull("s1:stopTimeANX", manager);
                 acquisitionPerid.StopTimeANX = float.Parse(stopTimeANXNode.InnerText);
 
                 return acquisitionPerid;
@@ -378,12 +378,12 @@ namespace SharpSentinel.Parser.Parsers
 
                 var generalProductInformation = new GeneralProductInformation();
 
-                var dataNode = generalProductInformationNode.SelectSingleNode("metadataWrap/xmlData/s1sarl1:standAloneProductInformation", manager);
+                var dataNode = generalProductInformationNode.SelectSingleNodeThrowIfNull("metadataWrap/xmlData/s1sarl1:standAloneProductInformation", manager);
 
-                var instrumentConfigurationIDNode = dataNode.SelectSingleNode("s1sarl1:instrumentConfigurationID", manager);
+                var instrumentConfigurationIDNode = dataNode.SelectSingleNodeThrowIfNull("s1sarl1:instrumentConfigurationID", manager);
                 generalProductInformation.InstrumentConfigurationID = int.Parse(instrumentConfigurationIDNode.InnerText);
 
-                var missionDataTakeIDNode = dataNode.SelectSingleNode("s1sarl1:missionDataTakeID", manager);
+                var missionDataTakeIDNode = dataNode.SelectSingleNodeThrowIfNull("s1sarl1:missionDataTakeID", manager);
                 generalProductInformation.MissionDataTakeID = int.Parse(missionDataTakeIDNode.InnerText);
 
                 var transmitterReceiverPolarisationNodes = dataNode.SelectNodes("s1sarl1:transmitterReceiverPolarisation", manager);
@@ -392,33 +392,33 @@ namespace SharpSentinel.Parser.Parsers
                     generalProductInformation.TransmitterReceiverPolarisation.Add((TransmitterReceiverPolarisationType)Enum.Parse(typeof(TransmitterReceiverPolarisationType), transmitterReceiverPolarisationNode.InnerText));
                 }
 
-                var productClassNode = dataNode.SelectSingleNode("s1sarl1:productClass", manager);
+                var productClassNode = dataNode.SelectSingleNodeThrowIfNull("s1sarl1:productClass", manager);
                 generalProductInformation.ProductClass = (ProductClassType)Enum.Parse(typeof(ProductClassType), productClassNode.InnerText);
 
-                var productClassDescriptionNode = dataNode.SelectSingleNode("s1sarl1:productClassDescription", manager);
+                var productClassDescriptionNode = dataNode.SelectSingleNodeThrowIfNull("s1sarl1:productClassDescription", manager);
                 generalProductInformation.ProductClassDescription = (ProductClassDescriptionType)Enum.Parse(typeof(ProductClassDescriptionType), productClassDescriptionNode.InnerText.RemoveWhitespaces());
 
-                var productCompositionNode = dataNode.SelectSingleNode("s1sarl1:productComposition", manager);
+                var productCompositionNode = dataNode.SelectSingleNodeThrowIfNull("s1sarl1:productComposition", manager);
                 generalProductInformation.ProductComposition = (ProductCompositionType)Enum.Parse(typeof(ProductCompositionType), productCompositionNode.InnerText);
 
-                var productTypeNode = dataNode.SelectSingleNode("s1sarl1:productType", manager);
+                var productTypeNode = dataNode.SelectSingleNodeThrowIfNull("s1sarl1:productType", manager);
                 generalProductInformation.ProductType = (ProductTypeType)Enum.Parse(typeof(ProductTypeType), productTypeNode.InnerText);
 
-                var productTimelinessCategoryNode = dataNode.SelectSingleNode("s1sarl1:productTimelinessCategory", manager);
+                var productTimelinessCategoryNode = dataNode.SelectSingleNodeThrowIfNull("s1sarl1:productTimelinessCategory", manager);
                 generalProductInformation.ProductTimelinessCategory = (ProductTimelinessCategoryType)Enum.Parse(typeof(ProductTimelinessCategoryType), productTimelinessCategoryNode.InnerText.Replace("-", ""));
 
-                var sliceProductFlagNode = dataNode.SelectSingleNode("s1sarl1:sliceProductFlag", manager);
+                var sliceProductFlagNode = dataNode.SelectSingleNodeThrowIfNull("s1sarl1:sliceProductFlag", manager);
                 generalProductInformation.SlideProductFlag = bool.Parse(sliceProductFlagNode.InnerText);
 
                 if (generalProductInformation.SlideProductFlag)
                 {
-                    var segmentStartTimeNode = dataNode.SelectSingleNode("s1sarl1:segmentStartTime", manager);
+                    var segmentStartTimeNode = dataNode.SelectSingleNodeThrowIfNull("s1sarl1:segmentStartTime", manager);
                     generalProductInformation.SegementStartTime = DateTimeOffset.Parse(segmentStartTimeNode.InnerText);
 
-                    var sliceNumberNode = dataNode.SelectSingleNode("s1sarl1:sliceNumber", manager);
+                    var sliceNumberNode = dataNode.SelectSingleNodeThrowIfNull("s1sarl1:sliceNumber", manager);
                     generalProductInformation.SliceNumber = int.Parse(sliceNumberNode.InnerText);
 
-                    var totalSlicesNode = dataNode.SelectSingleNode("s1sarl1:totalSlices", manager);
+                    var totalSlicesNode = dataNode.SelectSingleNodeThrowIfNull("s1sarl1:totalSlices", manager);
                     generalProductInformation.TotalSlices = int.Parse(totalSlicesNode.InnerText);
                 }
 

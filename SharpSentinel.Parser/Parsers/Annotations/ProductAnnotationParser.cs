@@ -33,10 +33,10 @@ namespace SharpSentinel.Parser.Parsers.Annotations
 
                 productAnnotation.RawXML = document.InnerXml;
 
-                var productNode = document.SelectSingleNode("product");
+                var productNode = document.SelectSingleNodeThrowIfNull("product");
 
-                productAnnotation.AdsHeader = AdsHeaderParser.Parse(productNode.SelectSingleNode("adsHeader"));
-                productAnnotation.QualityInformation = QualityInformationParser.Parse(productNode.SelectSingleNode("qualityInformation"));
+                productAnnotation.AdsHeader = AdsHeaderParser.Parse(productNode.SelectSingleNodeThrowIfNull("adsHeader"));
+                productAnnotation.QualityInformation = QualityInformationParser.Parse(productNode.SelectSingleNodeThrowIfNull("qualityInformation"));
             }
 
             return productAnnotation;
@@ -48,7 +48,7 @@ namespace SharpSentinel.Parser.Parsers.Annotations
             {
                 var qualityInformation = new QualityInformation
                 {
-                    ProductQualityIndex = double.Parse(qualityInformationNode.SelectSingleNode("productQualityIndex").InnerText),
+                    ProductQualityIndex = double.Parse(qualityInformationNode.SelectSingleNodeThrowIfNull("productQualityIndex").InnerText),
                     QualityDatas = new List<QualityData>()
                 };
 
@@ -66,66 +66,66 @@ namespace SharpSentinel.Parser.Parsers.Annotations
             {
                 public static QualityData Parse(XmlNode qualityDataNode)
                 {
-                    var downlinkQualityNode = qualityDataNode.SelectSingleNode("downlinkQuality");
-                    var rawDataAnalysisQualityNode = qualityDataNode.SelectSingleNode("rawDataAnalysisQuality");
-                    var dopplerCentroidQualityNode = qualityDataNode.SelectSingleNode("dopplerCentroidQuality");
-                    var imageQualityNode = qualityDataNode.SelectSingleNode("imageQuality");
+                    var downlinkQualityNode = qualityDataNode.SelectSingleNodeThrowIfNull("downlinkQuality");
+                    var rawDataAnalysisQualityNode = qualityDataNode.SelectSingleNodeThrowIfNull("rawDataAnalysisQuality");
+                    var dopplerCentroidQualityNode = qualityDataNode.SelectSingleNodeThrowIfNull("dopplerCentroidQuality");
+                    var imageQualityNode = qualityDataNode.SelectSingleNodeThrowIfNull("imageQuality");
 
                     var data = new QualityData();
-                    data.AzimuthTime = DateTimeOffset.Parse(qualityDataNode.SelectSingleNode("azimuthTime").InnerText);
+                    data.AzimuthTime = DateTimeOffset.Parse(qualityDataNode.SelectSingleNodeThrowIfNull("azimuthTime").InnerText);
 
                     data.DownlinkQuality = new DownlinkQuality();
-                    data.DownlinkQuality.IInputDataMean = double.Parse(downlinkQualityNode.SelectSingleNode("iInputDataMean").InnerText);
-                    data.DownlinkQuality.QInputDataMean = double.Parse(downlinkQualityNode.SelectSingleNode("qInputDataMean").InnerText);
-                    data.DownlinkQuality.InputDataMeanOutsideNorminalRange = bool.Parse(downlinkQualityNode.SelectSingleNode("inputDataMeanOutsideNominalRangeFlag").InnerText);
-                    data.DownlinkQuality.IInputDataStdDev = double.Parse(downlinkQualityNode.SelectSingleNode("iInputDataStdDev").InnerText);
-                    data.DownlinkQuality.QInputDataStdDev = double.Parse(downlinkQualityNode.SelectSingleNode("qInputDataStdDev").InnerText);
-                    data.DownlinkQuality.InputDataStDevOutsideNominalRange = bool.Parse(downlinkQualityNode.SelectSingleNode("inputDataStDevOutsideNominalRangeFlag").InnerText);
-                    data.DownlinkQuality.DownlinkInputDataGaps = int.Parse(downlinkQualityNode.SelectSingleNode("numDownlinkInputDataGaps").InnerText);
-                    data.DownlinkQuality.DownlinkGapsInInputDataSignificant = bool.Parse(downlinkQualityNode.SelectSingleNode("downlinkGapsInInputDataSignificantFlag").InnerText);
-                    data.DownlinkQuality.DownlinkInputMissingLines = int.Parse(downlinkQualityNode.SelectSingleNode("numDownlinkInputMissingLines").InnerText);
-                    data.DownlinkQuality.DownlinkMissingLinesSignificant = bool.Parse(downlinkQualityNode.SelectSingleNode("downlinkMissingLinesSignificantFlag").InnerText);
-                    data.DownlinkQuality.InstrumentInputDataGaps = int.Parse(downlinkQualityNode.SelectSingleNode("numInstrumentInputDataGaps").InnerText);
-                    data.DownlinkQuality.InstrumentGapsInInputDataSignificant = bool.Parse(downlinkQualityNode.SelectSingleNode("instrumentGapsInInputDataSignificantFlag").InnerText);
-                    data.DownlinkQuality.InstrumentInputMissingLines = int.Parse(downlinkQualityNode.SelectSingleNode("numInstrumentInputMissingLines").InnerText);
-                    data.DownlinkQuality.InstrumentMissingLinesSignificant = bool.Parse(downlinkQualityNode.SelectSingleNode("instrumentMissingLinesSignificantFlag").InnerText);
-                    data.DownlinkQuality.SsbErrorInputDataGaps = int.Parse(downlinkQualityNode.SelectSingleNode("numSsbErrorInputDataGaps").InnerText);
-                    data.DownlinkQuality.SsbErrorGapsInInputDataSignificant = bool.Parse(downlinkQualityNode.SelectSingleNode("ssbErrorGapsInInputDataSignificantFlag").InnerText);
-                    data.DownlinkQuality.SsbErrorInputMissingLines = int.Parse(downlinkQualityNode.SelectSingleNode("numSsbErrorInputMissingLines").InnerText);
-                    data.DownlinkQuality.SsbErrorMissingLinesSignificant = bool.Parse(downlinkQualityNode.SelectSingleNode("ssbErrorMissingLinesSignificantFlag").InnerText);
-                    data.DownlinkQuality.ChirpSourceUsed = (ChirpSourceType) Enum.Parse(typeof(ChirpSourceType), downlinkQualityNode.SelectSingleNode("chirpSourceUsed").InnerText);
-                    data.DownlinkQuality.PgSourceUsed = (PgSourceType) Enum.Parse(typeof(PgSourceType), downlinkQualityNode.SelectSingleNode("pgSourceUsed").InnerText);
-                    data.DownlinkQuality.RrfSpectrumUsed = (RrfSpectrumType) Enum.Parse(typeof(RrfSpectrumType), downlinkQualityNode.SelectSingleNode("rrfSpectrumUsed").InnerText.RemoveWhitespaces());
-                    data.DownlinkQuality.ReplicaReconstructionFailed = bool.Parse(downlinkQualityNode.SelectSingleNode("replicaReconstructionFailedFlag").InnerText);
-                    data.DownlinkQuality.MeanPgProductAmplitude = double.Parse(downlinkQualityNode.SelectSingleNode("meanPgProductAmplitude").InnerText);
-                    data.DownlinkQuality.StdDevPgProductAmplitude = double.Parse(downlinkQualityNode.SelectSingleNode("stdDevPgProductAmplitude").InnerText);
-                    data.DownlinkQuality.MeanPgProductPhase = double.Parse(downlinkQualityNode.SelectSingleNode("meanPgProductPhase").InnerText);
-                    data.DownlinkQuality.StdDevPgProductPhase = double.Parse(downlinkQualityNode.SelectSingleNode("stdDevPgProductPhase").InnerText);
-                    data.DownlinkQuality.PgProductDerivationFailed = bool.Parse(downlinkQualityNode.SelectSingleNode("pgProductDerivationFailedFlag").InnerText);
-                    data.DownlinkQuality.InvalidDownlinkParams = bool.Parse(downlinkQualityNode.SelectSingleNode("invalidDownlinkParamsFlag").InnerText);
+                    data.DownlinkQuality.IInputDataMean = double.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("iInputDataMean").InnerText);
+                    data.DownlinkQuality.QInputDataMean = double.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("qInputDataMean").InnerText);
+                    data.DownlinkQuality.InputDataMeanOutsideNorminalRange = bool.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("inputDataMeanOutsideNominalRangeFlag").InnerText);
+                    data.DownlinkQuality.IInputDataStdDev = double.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("iInputDataStdDev").InnerText);
+                    data.DownlinkQuality.QInputDataStdDev = double.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("qInputDataStdDev").InnerText);
+                    data.DownlinkQuality.InputDataStDevOutsideNominalRange = bool.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("inputDataStDevOutsideNominalRangeFlag").InnerText);
+                    data.DownlinkQuality.DownlinkInputDataGaps = int.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("numDownlinkInputDataGaps").InnerText);
+                    data.DownlinkQuality.DownlinkGapsInInputDataSignificant = bool.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("downlinkGapsInInputDataSignificantFlag").InnerText);
+                    data.DownlinkQuality.DownlinkInputMissingLines = int.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("numDownlinkInputMissingLines").InnerText);
+                    data.DownlinkQuality.DownlinkMissingLinesSignificant = bool.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("downlinkMissingLinesSignificantFlag").InnerText);
+                    data.DownlinkQuality.InstrumentInputDataGaps = int.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("numInstrumentInputDataGaps").InnerText);
+                    data.DownlinkQuality.InstrumentGapsInInputDataSignificant = bool.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("instrumentGapsInInputDataSignificantFlag").InnerText);
+                    data.DownlinkQuality.InstrumentInputMissingLines = int.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("numInstrumentInputMissingLines").InnerText);
+                    data.DownlinkQuality.InstrumentMissingLinesSignificant = bool.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("instrumentMissingLinesSignificantFlag").InnerText);
+                    data.DownlinkQuality.SsbErrorInputDataGaps = int.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("numSsbErrorInputDataGaps").InnerText);
+                    data.DownlinkQuality.SsbErrorGapsInInputDataSignificant = bool.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("ssbErrorGapsInInputDataSignificantFlag").InnerText);
+                    data.DownlinkQuality.SsbErrorInputMissingLines = int.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("numSsbErrorInputMissingLines").InnerText);
+                    data.DownlinkQuality.SsbErrorMissingLinesSignificant = bool.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("ssbErrorMissingLinesSignificantFlag").InnerText);
+                    data.DownlinkQuality.ChirpSourceUsed = (ChirpSourceType) Enum.Parse(typeof(ChirpSourceType), downlinkQualityNode.SelectSingleNodeThrowIfNull("chirpSourceUsed").InnerText);
+                    data.DownlinkQuality.PgSourceUsed = (PgSourceType) Enum.Parse(typeof(PgSourceType), downlinkQualityNode.SelectSingleNodeThrowIfNull("pgSourceUsed").InnerText);
+                    data.DownlinkQuality.RrfSpectrumUsed = (RrfSpectrumType) Enum.Parse(typeof(RrfSpectrumType), downlinkQualityNode.SelectSingleNodeThrowIfNull("rrfSpectrumUsed").InnerText.RemoveWhitespaces());
+                    data.DownlinkQuality.ReplicaReconstructionFailed = bool.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("replicaReconstructionFailedFlag").InnerText);
+                    data.DownlinkQuality.MeanPgProductAmplitude = double.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("meanPgProductAmplitude").InnerText);
+                    data.DownlinkQuality.StdDevPgProductAmplitude = double.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("stdDevPgProductAmplitude").InnerText);
+                    data.DownlinkQuality.MeanPgProductPhase = double.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("meanPgProductPhase").InnerText);
+                    data.DownlinkQuality.StdDevPgProductPhase = double.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("stdDevPgProductPhase").InnerText);
+                    data.DownlinkQuality.PgProductDerivationFailed = bool.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("pgProductDerivationFailedFlag").InnerText);
+                    data.DownlinkQuality.InvalidDownlinkParams = bool.Parse(downlinkQualityNode.SelectSingleNodeThrowIfNull("invalidDownlinkParamsFlag").InnerText);
 
                     data.RawDataAnalysisQuality = new RawDataAnalysisQuality();
-                    data.RawDataAnalysisQuality.IBias = double.Parse(rawDataAnalysisQualityNode.SelectSingleNode("iBias").InnerText);
-                    data.RawDataAnalysisQuality.IBiasSignificance = bool.Parse(rawDataAnalysisQualityNode.SelectSingleNode("iBiasSignificanceFlag").InnerText);
-                    data.RawDataAnalysisQuality.QBias = double.Parse(rawDataAnalysisQualityNode.SelectSingleNode("qBias").InnerText);
-                    data.RawDataAnalysisQuality.QBiasSignificance = bool.Parse(rawDataAnalysisQualityNode.SelectSingleNode("qBiasSignificanceFlag").InnerText);
-                    data.RawDataAnalysisQuality.IQGainImbalance = double.Parse(rawDataAnalysisQualityNode.SelectSingleNode("iqGainImbalance").InnerText);
-                    data.RawDataAnalysisQuality.IQGainSignificance = bool.Parse(rawDataAnalysisQualityNode.SelectSingleNode("iqGainSignificanceFlag").InnerText);
-                    data.RawDataAnalysisQuality.IqQuadratureDeparture = double.Parse(rawDataAnalysisQualityNode.SelectSingleNode("iqQuadratureDeparture").InnerText);
-                    data.RawDataAnalysisQuality.IqQuadratureDepartureSignificance = bool.Parse(rawDataAnalysisQualityNode.SelectSingleNode("iqQuadratureDepartureSignificanceFlag").InnerText);
+                    data.RawDataAnalysisQuality.IBias = double.Parse(rawDataAnalysisQualityNode.SelectSingleNodeThrowIfNull("iBias").InnerText);
+                    data.RawDataAnalysisQuality.IBiasSignificance = bool.Parse(rawDataAnalysisQualityNode.SelectSingleNodeThrowIfNull("iBiasSignificanceFlag").InnerText);
+                    data.RawDataAnalysisQuality.QBias = double.Parse(rawDataAnalysisQualityNode.SelectSingleNodeThrowIfNull("qBias").InnerText);
+                    data.RawDataAnalysisQuality.QBiasSignificance = bool.Parse(rawDataAnalysisQualityNode.SelectSingleNodeThrowIfNull("qBiasSignificanceFlag").InnerText);
+                    data.RawDataAnalysisQuality.IQGainImbalance = double.Parse(rawDataAnalysisQualityNode.SelectSingleNodeThrowIfNull("iqGainImbalance").InnerText);
+                    data.RawDataAnalysisQuality.IQGainSignificance = bool.Parse(rawDataAnalysisQualityNode.SelectSingleNodeThrowIfNull("iqGainSignificanceFlag").InnerText);
+                    data.RawDataAnalysisQuality.IqQuadratureDeparture = double.Parse(rawDataAnalysisQualityNode.SelectSingleNodeThrowIfNull("iqQuadratureDeparture").InnerText);
+                    data.RawDataAnalysisQuality.IqQuadratureDepartureSignificance = bool.Parse(rawDataAnalysisQualityNode.SelectSingleNodeThrowIfNull("iqQuadratureDepartureSignificanceFlag").InnerText);
 
                     data.DopplerCentroidQuality = new DopplerCentroidQuality();
-                    data.DopplerCentroidQuality.DcMethod = (DcMethodType) Enum.Parse(typeof(DcMethodType), dopplerCentroidQualityNode.SelectSingleNode("dcMethod").InnerText.RemoveWhitespaces());
-                    data.DopplerCentroidQuality.DopplerCentroidUncertain = bool.Parse(dopplerCentroidQualityNode.SelectSingleNode("dopplerCentroidUncertainFlag").InnerText);
+                    data.DopplerCentroidQuality.DcMethod = (DcMethodType) Enum.Parse(typeof(DcMethodType), dopplerCentroidQualityNode.SelectSingleNodeThrowIfNull("dcMethod").InnerText.RemoveWhitespaces());
+                    data.DopplerCentroidQuality.DopplerCentroidUncertain = bool.Parse(dopplerCentroidQualityNode.SelectSingleNodeThrowIfNull("dopplerCentroidUncertainFlag").InnerText);
 
                     data.ImageQuality = new ImageQuality();
                     data.ImageQuality.ImageStatistics = new ImageQualityStatistics();
-                    data.ImageQuality.ImageStatistics.OutputDataMeanRe = double.Parse(imageQualityNode.SelectSingleNode("imageStatistics/outputDataMean/re").InnerText);
-                    data.ImageQuality.ImageStatistics.OutputDataMeanIm = double.Parse(imageQualityNode.SelectSingleNode("imageStatistics/outputDataMean/im").InnerText);
-                    data.ImageQuality.ImageStatistics.OutputDataStdDevRe = double.Parse(imageQualityNode.SelectSingleNode("imageStatistics/outputDataStdDev/re").InnerText);
-                    data.ImageQuality.ImageStatistics.OutputDataStdDevIm = double.Parse(imageQualityNode.SelectSingleNode("imageStatistics/outputDataStdDev/im").InnerText);
-                    data.ImageQuality.OutputDataMeanOutsideNominalRange = bool.Parse(imageQualityNode.SelectSingleNode("outputDataMeanOutsideNominalRangeFlag").InnerText);
-                    data.ImageQuality.OutputDataStDevOutsideNominalRange = bool.Parse(imageQualityNode.SelectSingleNode("outputDataStDevOutsideNominalRangeFlag").InnerText);
+                    data.ImageQuality.ImageStatistics.OutputDataMeanRe = double.Parse(imageQualityNode.SelectSingleNodeThrowIfNull("imageStatistics/outputDataMean/re").InnerText);
+                    data.ImageQuality.ImageStatistics.OutputDataMeanIm = double.Parse(imageQualityNode.SelectSingleNodeThrowIfNull("imageStatistics/outputDataMean/im").InnerText);
+                    data.ImageQuality.ImageStatistics.OutputDataStdDevRe = double.Parse(imageQualityNode.SelectSingleNodeThrowIfNull("imageStatistics/outputDataStdDev/re").InnerText);
+                    data.ImageQuality.ImageStatistics.OutputDataStdDevIm = double.Parse(imageQualityNode.SelectSingleNodeThrowIfNull("imageStatistics/outputDataStdDev/im").InnerText);
+                    data.ImageQuality.OutputDataMeanOutsideNominalRange = bool.Parse(imageQualityNode.SelectSingleNodeThrowIfNull("outputDataMeanOutsideNominalRangeFlag").InnerText);
+                    data.ImageQuality.OutputDataStDevOutsideNominalRange = bool.Parse(imageQualityNode.SelectSingleNodeThrowIfNull("outputDataStDevOutsideNominalRangeFlag").InnerText);
 
                     return data;
                 }
