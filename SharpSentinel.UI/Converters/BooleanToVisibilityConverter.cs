@@ -9,21 +9,17 @@ namespace SharpSentinel.UI.Converters
     {
         public bool Inverse { get; set; }
 
+        public Visibility? NullValue { get; set; }
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var result = default(bool);
-
             if (value == null)
-            {
-
-            }
-            else
-            {
-                if (value is bool == false)
-                    throw new ArgumentException();
+                return this.NullValue.GetValueOrDefault(Visibility.Collapsed);
+            
+            if (value is bool == false)
+                throw new ArgumentException("Argument must be of type boolean");
                 
-                result = (bool)value;
-            }
+            var result = (bool)value;
 
             if (this.Inverse)
                 result = !result;

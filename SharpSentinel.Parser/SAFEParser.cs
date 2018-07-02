@@ -47,7 +47,7 @@ namespace SharpSentinel.Parser
         /// <returns>The parsed SAR-C data</returns>
         public static async Task<S1Data> OpenSentinel1DataSetAsync(string path)
         {
-            DirectoryHelper.EnsureS1SAFEDirectory(path);
+            SafeDirectoryHelper.EnsureS1SAFEDirectory(path);
 
             var data = ManifestParser.Parse(path);
 

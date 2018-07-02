@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
 using SharpSentinel.Parser.Data;
+using SharpSentinel.Parser.Helpers;
 using SharpSentinel.UI.Common;
 using SharpSentinel.UI.Services.Messages;
 using SharpSentinel.UI.Services.Parser;
@@ -18,6 +19,9 @@ namespace SharpSentinel.UI.Views.DataSet
         private string _selectedFolderPath;
         private BaseData _loadedData;
 
+        private bool? _isValidFolder;
+        private string _selectedFolderErrorMessage;
+
         public string SelectedFolderPath
         {
             get { return this._selectedFolderPath; }
@@ -28,6 +32,18 @@ namespace SharpSentinel.UI.Views.DataSet
         {
             get { return this._loadedData; }
             set { this.Set(ref this._loadedData, value); }
+        }
+
+        public bool? IsValidFolder
+        {
+            get { return this._isValidFolder; }
+            set { this.Set(ref this._isValidFolder, value); }
+        }
+
+        public string SelectedFolderErrorMessage
+        {
+            get { return this._selectedFolderErrorMessage; }
+            set { this.Set(ref this._selectedFolderErrorMessage, value); }
         }
 
         public FluidCommand SelectFolderCommand { get; }
@@ -50,7 +66,7 @@ namespace SharpSentinel.UI.Views.DataSet
 
         private bool CanLoadDataSet()
         {
-            return string.IsNullOrWhiteSpace(this.SelectedFolderPath) == false;
+            return string.IsNullOrWhiteSpace(this.SelectedFolderPath) == false && this.IsValidFolder.GetValueOrDefault();
         }
 
         private async Task LoadDataSet()
@@ -76,6 +92,17 @@ namespace SharpSentinel.UI.Views.DataSet
             var result = this._messageManager.ShowSelectFolderDialog();
 
             this.SelectedFolderPath = result.result.GetValueOrDefault() ? result.selectedPath : string.Empty;
+
+            try
+            {
+                SafeDirectoryHelper.EnsureS1SAFEDirectory(this.SelectedFolderPath);
+                this.IsValidFolder = true;
+            }
+            catch (Exception e)
+            {
+                this.SelectedFolderErrorMessage = e.Message;
+                this.IsValidFolder = false;
+            }
         }
     }
 }

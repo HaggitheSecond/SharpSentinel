@@ -5,35 +5,65 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SharpSentinel.UI.Views.DataSet"
              xmlns:controls="clr-namespace:SharpSentinel.UI.Controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:converters="clr-namespace:SharpSentinel.UI.Converters"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
              d:DataContext="{d:DesignInstance local:LoadDataSetViewModel}"
              x:Name="Root">
+    <UserControl.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"
+                                                 Inverse="True" />
+    </UserControl.Resources>
     <Grid Margin="5,5,5,5">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid  Grid.Row="0"
-               VerticalAlignment="Top"
-               HorizontalAlignment="Stretch">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*"
-                                  x:Name="TextBoxColumn" />
-            </Grid.ColumnDefinitions>
-            <controls:IconButton Text="Select Folder"
-                                 Icon="Folder"
-                                 Command="{Binding SelectFolderCommand}"
-                                 Grid.Column="0" />
-            <TextBox x:Name="SelectedFolderTextBox"
-                     HorizontalAlignment="Stretch"
-                     Margin="10,0,0,0"
-                     Text="{Binding SelectedFolderPath}"
-                     IsReadOnly="True"
-                     Grid.Column="1" />
-        </Grid>
+        <StackPanel  Grid.Row="0">
+            <Grid VerticalAlignment="Top"
+                  HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*"
+                                      x:Name="TextBoxColumn" />
+                </Grid.ColumnDefinitions>
+                <controls:IconButton Text="Select Folder"
+                                     Icon="Folder"
+                                     Command="{Binding SelectFolderCommand}"
+                                     Grid.Column="0" />
+                <TextBox x:Name="SelectedFolderTextBox"
+                         HorizontalAlignment="Stretch"
+                         Margin="10,0,0,0"
+                         Text="{Binding SelectedFolderPath}"
+                         IsReadOnly="True"
+                         Grid.Column="1" />
+            </Grid>
+            <Grid Margin="0,10,0,0">
+                <StackPanel Orientation="Horizontal"
+                            Visibility="{Binding IsValidFolder, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                            HorizontalAlignment="Center">
+                    <iconPacks:PackIconModern Kind="Cancel"
+                                              Margin="0,4,5,0"
+                                              VerticalAlignment="Center" />
+                    <TextBlock Text="{Binding SelectedFolderErrorMessage}"
+                               FontSize="18"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Visibility="{Binding IsValidFolder, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            HorizontalAlignment="Center">
+                    <iconPacks:PackIconModern Kind="Check"
+                                              Margin="0,4,5,0"
+                                              VerticalAlignment="Center" />
+                    <TextBlock Text="Valid folder"
+                               FontSize="18"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />

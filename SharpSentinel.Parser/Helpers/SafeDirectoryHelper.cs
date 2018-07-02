@@ -5,7 +5,7 @@ using SharpSentinel.Parser.Extensions;
 
 namespace SharpSentinel.Parser.Helpers
 {
-    internal static class DirectoryHelper
+    public static class SafeDirectoryHelper
     {
         /// <summary>
         /// Ensure the given directory is formated correctly for sentinel 1 sar-c data
