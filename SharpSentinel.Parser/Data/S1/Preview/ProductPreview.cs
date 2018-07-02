@@ -3,7 +3,7 @@ using SharpSentinel.Parser.Data.Interfaces;
 
 namespace SharpSentinel.Parser.Data.S1.Preview
 {
-    public class ProductPreview : IFile
+    public class ProductPreview : IHtmlFile
     {
         /// <summary>
         /// Systemdata for the .html file

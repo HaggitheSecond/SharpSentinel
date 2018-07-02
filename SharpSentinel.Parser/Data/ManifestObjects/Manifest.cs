@@ -3,7 +3,7 @@ using SharpSentinel.Parser.Data.Interfaces;
 
 namespace SharpSentinel.Parser.Data.ManifestObjects
 {
-    public class Manifest : IFile, IXmlFile
+    public class Manifest : IXmlFile
     {
         /// <summary>
         /// Metadata saved directly in the manifest

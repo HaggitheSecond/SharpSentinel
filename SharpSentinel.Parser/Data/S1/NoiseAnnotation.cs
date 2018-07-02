@@ -6,7 +6,7 @@ using SharpSentinel.Parser.Data.S1.Annotations;
 
 namespace SharpSentinel.Parser.Data.S1
 {
-    public class NoiseAnnotation : IFile, IXmlFile
+    public class NoiseAnnotation : IXmlFile
     {
         /// <summary>
         /// Systemdata for the .xml file
