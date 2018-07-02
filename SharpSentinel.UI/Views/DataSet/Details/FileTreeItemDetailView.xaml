@@ -11,14 +11,54 @@
              d:DataContext="{d:DesignInstance local:FileTreeItemDetailViewModel}">
     <Grid Margin="5,5,5,5">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid ScrollViewer.HorizontalScrollBarVisibility="Auto">
-            <controls:TextBlockWithLabel Label="Name"
-                                         Value="{Binding File.Name}" />
-        </Grid>
-        <Grid Grid.Row="1">
+        <Separator Grid.Row="0"/>
+        <StackPanel Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Name"
+                               FontWeight="Bold" />
+                    <TextBlock Text="Extension"
+                               FontWeight="Bold" />
+                    <TextBlock Text="Directory"
+                               FontWeight="Bold" />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding File.Name}" />
+                    <TextBlock Text="{Binding File.Extension}" />
+                    <TextBlock Text="{Binding File.DirectoryName}" 
+                               ToolTip="{Binding File.DirectoryName}"/>
+                </StackPanel>
+            </Grid>
+            <Separator/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Created (UTC)"
+                               FontWeight="Bold" />
+                    <TextBlock Text="Last change (UTC)"
+                               FontWeight="Bold" />
+                    <TextBlock Text="Last access (UTC)"
+                               FontWeight="Bold" />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding File.CreationTimeUtc}" />
+                    <TextBlock Text="{Binding File.LastWriteTimeUtc}" />
+                    <TextBlock Text="{Binding File.LastAccessTimeUtc}" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
@@ -26,11 +66,11 @@
             <controls:IconButton Text="Open location"
                                  Icon="FolderOpen"
                                  Command="{Binding OpenLocationCommand}"
-                                 Grid.Column="0"/>
+                                 Grid.Column="0" />
             <controls:IconButton Text="Open file"
                                  Icon="Page"
                                  Command="{Binding OpenFileCommand}"
-                                 Grid.Column="1"/>
+                                 Grid.Column="1" />
         </Grid>
     </Grid>
 </UserControl>
