@@ -1,19 +1,109 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <ApplicationIcon />
-    <Win32Resource />
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{641DBC09-75BC-45B3-9A0E-842E99468157}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SharpSentinel.Parser</RootNamespace>
+    <AssemblyName>SharpSentinel.Parser</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\SharpSentinel.Parser.xml</DocumentationFile>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <NoWarn>1701;1702;1705;1591</NoWarn>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
+    <Reference Include="JetBrains.Annotations, Version=11.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.11.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Compile Include="Data\BaseData.cs" />
+    <Compile Include="Data\Common\Checksum.cs" />
+    <Compile Include="Data\Interfaces\IFile.cs" />
+    <Compile Include="Data\Interfaces\IHtmlFile.cs" />
+    <Compile Include="Data\Interfaces\IImageFile.cs" />
+    <Compile Include="Data\Interfaces\IXmlFile.cs" />
+    <Compile Include="Data\Internal\FileTypes\DataFile.cs" />
+    <Compile Include="Data\Internal\PlatformType.cs" />
+    <Compile Include="Data\Internal\SAFEFileTypes.cs" />
+    <Compile Include="Data\ManifestObjects\AcquisitionPeriod.cs" />
+    <Compile Include="Data\ManifestObjects\GeneralProductInformation.cs" />
+    <Compile Include="Data\ManifestObjects\Manifest.cs" />
+    <Compile Include="Data\ManifestObjects\MeasurementFrameSet.cs" />
+    <Compile Include="Data\ManifestObjects\MeasurementOrbitReference.cs" />
+    <Compile Include="Data\ManifestObjects\MetaData.cs" />
+    <Compile Include="Data\ManifestObjects\Platform.cs" />
+    <Compile Include="Data\ManifestObjects\Processing.cs" />
+    <Compile Include="Data\S1Data.cs" />
+    <Compile Include="Data\S1\Annotations\AdsHeader.cs" />
+    <Compile Include="Data\S1\Annotations\CalibrationVector.cs" />
+    <Compile Include="Data\S1\Annotations\NoiseAzimuthVector.cs" />
+    <Compile Include="Data\S1\Annotations\NoiseRangeVector.cs" />
+    <Compile Include="Data\S1\Annotations\QualityInformation.cs" />
+    <Compile Include="Data\S1\CalibriationAnnotation.cs" />
+    <Compile Include="Data\S1\MeasurementDataUnit.cs" />
+    <Compile Include="Data\S1\NoiseAnnotation.cs" />
+    <Compile Include="Data\S1\Preview\MapOverlay.cs" />
+    <Compile Include="Data\S1\Preview\Preview.cs" />
+    <Compile Include="Data\S1\Preview\ProductPreview.cs" />
+    <Compile Include="Data\S1\Preview\QuickLook.cs" />
+    <Compile Include="Data\S1\ProductAnnotation.cs" />
+    <Compile Include="Data\S1\ReportFile.cs" />
+    <Compile Include="Data\S2Data.cs" />
+    <Compile Include="Exceptions\SAFEDirectoryMalformedException.cs" />
+    <Compile Include="Exceptions\XML\XmlNodeNotFoundException.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
+    <Compile Include="Extensions\SAFEFilesExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Extensions\XMLExtensions.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
+    <Compile Include="Helpers\Guard.cs" />
+    <Compile Include="Helpers\MethodHelper.cs" />
+    <Compile Include="Helpers\SafeDirectoryHelper.cs" />
+    <Compile Include="Helpers\SAFEHelper.cs" />
+    <Compile Include="Parsers\Annotations\AdsHeaderParser.cs" />
+    <Compile Include="Parsers\Annotations\CalibrationAnnotationParser.cs" />
+    <Compile Include="Parsers\Annotations\NoiseAnnotationParser.cs" />
+    <Compile Include="Parsers\Annotations\ProductAnnotationParser.cs" />
+    <Compile Include="Parsers\ManifestParser.cs" />
+    <Compile Include="Parsers\MeasurementDataUnitParser.cs" />
+    <Compile Include="Parsers\MetaDataParser.cs" />
+    <Compile Include="Parsers\PreviewParser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Abbreviations.cs" />
+    <Compile Include="SAFEParser.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Online.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

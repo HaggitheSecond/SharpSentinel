@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSentinel.UI", "SharpSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSentinel.Tests", "SharpSentinel.Tests\SharpSentinel.Tests.csproj", "{DED58220-375D-4F0F-A78A-BA8995BB973A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharpSentinel.Parser", "SharpSentinel.Parser\SharpSentinel.Parser.csproj", "{ED3AAECD-3F88-46DE-BB4F-B8A3EA7C812F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpSentinel.Parser", "SharpSentinel.Parser\SharpSentinel.Parser.csproj", "{641DBC09-75BC-45B3-9A0E-842E99468157}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{DED58220-375D-4F0F-A78A-BA8995BB973A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DED58220-375D-4F0F-A78A-BA8995BB973A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DED58220-375D-4F0F-A78A-BA8995BB973A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED3AAECD-3F88-46DE-BB4F-B8A3EA7C812F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED3AAECD-3F88-46DE-BB4F-B8A3EA7C812F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED3AAECD-3F88-46DE-BB4F-B8A3EA7C812F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED3AAECD-3F88-46DE-BB4F-B8A3EA7C812F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{641DBC09-75BC-45B3-9A0E-842E99468157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{641DBC09-75BC-45B3-9A0E-842E99468157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{641DBC09-75BC-45B3-9A0E-842E99468157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{641DBC09-75BC-45B3-9A0E-842E99468157}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
