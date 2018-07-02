@@ -1,11 +1,34 @@
 ﻿<UserControl x:Class="SharpSentinel.UI.Views.DataSet.FileTreeView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SharpSentinel.UI.Views.DataSet"
-        mc:Ignorable="d">
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:SharpSentinel.UI.Views.DataSet"
+             mc:Ignorable="d">
     <Grid>
-        <TreeView x:Name="TreeView"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TreeView x:Name="TreeView"
+                  Grid.Column="0"
+                  SelectedItemChanged="TreeView_OnSelectedItemChanged"
+                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                  MinWidth="150"
+                  MaxWidth="400">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
+                    <EventSetter Event="RequestBringIntoView"
+                                 Handler="TreeView_OnRequestBringIntoView" />
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+        <Rectangle Grid.Column="1"
+                   Fill="DarkGray"
+                   Width="1"
+                   HorizontalAlignment="Center"/>
+        <TabControl x:Name="TabControl"
+                    Grid.Column="2"/>
     </Grid>
 </UserControl>

@@ -2,8 +2,10 @@
 using System.IO;
 using Caliburn.Micro;
 using MahApps.Metro.IconPacks;
+using SharpSentinel.Parser.Data.Interfaces;
 using SharpSentinel.Parser.Data.S1;
 using SharpSentinel.UI.Common;
+using SharpSentinel.UI.Views.DataSet.Details;
 
 namespace SharpSentinel.UI.Views.DataSet
 {
@@ -12,6 +14,7 @@ namespace SharpSentinel.UI.Views.DataSet
         private string _displayText;
         private PackIconModernKind _icon;
         private string _toolTip;
+        private BindableCollection<TreeItemDetail> _detailPages;
 
         public string DisplayText
         {
@@ -31,6 +34,12 @@ namespace SharpSentinel.UI.Views.DataSet
             set { this.Set(ref this._toolTip, value); }
         }
 
+        public BindableCollection<TreeItemDetail> DetailPages
+        {
+            get { return this._detailPages; }
+            set { this.Set(ref this._detailPages, value); }
+        }
+
         public FluidCommand OpenFileCommand { get; }
 
         protected TreeItem(string displayText, FluidCommand openCommand, PackIconModernKind icon = PackIconModernKind.Page, string toolTip = "")
@@ -38,8 +47,8 @@ namespace SharpSentinel.UI.Views.DataSet
             this.DisplayText = displayText;
             this.Icon = icon;
             this.OpenFileCommand = openCommand;
-
             this.ToolTip = toolTip;
+            this.DetailPages = new BindableCollection<TreeItemDetail>();
         }
     }
 
@@ -65,10 +74,26 @@ namespace SharpSentinel.UI.Views.DataSet
         {
             this.FileInfo = fileInfo;
 
-            if (data != null)
-                this.Data = data;
-
             this.SetIconByFileExtension(fileInfo.Extension);
+
+            if (data == null)
+                return;
+
+            this.Data = data;
+
+            if (this.Data is IFile file)
+            {
+                var fileViewModel = IoC.Get<FileTreeItemDetailViewModel>();
+                fileViewModel.Initialize(file.File);
+                this.DetailPages.Add(fileViewModel);
+            }
+
+            if (this.Data is IXmlFile xmlFile)
+            {
+                var xmlViewModel = IoC.Get<XmlTreeItemDetailViewModel>();
+                xmlViewModel.Intialize(xmlFile.RawXml, xmlFile.File.Name);
+                this.DetailPages.Add(xmlViewModel);
+            }
         }
 
         private void SetIconByFileExtension(string fileExtension)

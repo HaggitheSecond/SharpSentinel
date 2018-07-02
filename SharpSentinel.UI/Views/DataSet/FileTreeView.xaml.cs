@@ -11,7 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Caliburn.Micro;
 using MahApps.Metro.IconPacks;
+using SharpSentinel.UI.Views.DataSet.Details;
 
 namespace SharpSentinel.UI.Views.DataSet
 {
@@ -85,7 +87,8 @@ namespace SharpSentinel.UI.Views.DataSet
                 ToolTip = new ToolTip
                 {
                     Content = string.IsNullOrWhiteSpace(item.ToolTip) ? item.DisplayText : item.ToolTip
-                }
+                },
+                DataContext = item
             };
 
             if (!(item is DirectoryTreeItem directoryItem))
@@ -121,6 +124,68 @@ namespace SharpSentinel.UI.Views.DataSet
                     textBlock
                 }
             };
+        }
+
+        private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            this.TabControl.Items.Clear();
+
+            if (!(e.NewValue is TreeViewItem treeViewItem))
+                return;
+
+            if (!(treeViewItem.DataContext is TreeItem treeItem))
+                return;
+
+            var orderedItems = treeItem.DetailPages.OrderBy(f => f.OrderPriority);
+            var details = orderedItems.Select(this.GenerateDetailPage).ToList();
+            
+            if(details.Count == 0)
+                details.Add(this.GenerateDetailPage(new NoDetailsTreeItemDetailViewModel()));
+
+            foreach (var currentDetails in details)
+            {
+                this.TabControl.Items.Add(currentDetails);
+            }
+
+            this.TabControl.SelectedItem = this.TabControl.Items[0];
+        }
+
+        private TabItem GenerateDetailPage(TreeItemDetail treeItemDetail)
+        {
+            var tabItem = new TabItem
+            {
+                Header = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal,
+                    Children =
+                    {
+
+                        new PackIconModern
+                        {
+                            Kind = treeItemDetail.Icon,
+                            Margin = new Thickness(0, 0, 5, 0)
+                        },
+                        new TextBlock
+                        {
+                            Text = treeItemDetail.GetDisplayName()
+                        }
+                    }
+                }
+            };
+
+            var view = ViewLocator.LocateForModel(treeItemDetail, null, null);
+            ViewModelBinder.Bind(treeItemDetail, view, null);
+            tabItem.Content = view;
+
+            return tabItem;
+        }
+
+        /// <summary>
+        /// Disable horizontal scrolling when selecting item
+        /// </summary>
+        private void TreeView_OnRequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        {
+            e.Handled = true;
         }
     }
 }

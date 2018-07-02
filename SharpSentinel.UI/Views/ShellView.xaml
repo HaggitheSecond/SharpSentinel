@@ -9,11 +9,12 @@
              xmlns:dataSet="clr-namespace:SharpSentinel.UI.Views.DataSet"
              xmlns:converters="clr-namespace:SharpSentinel.UI.Converters"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance local:ShellViewModel}">
+             d:DataContext="{d:DesignInstance local:ShellViewModel}"
+             x:Name="Root">
     <UserControl.Resources>
         <converters:BooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"
-                                                 Inverse="True"/>
-        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                                                 Inverse="True" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -27,9 +28,9 @@
                                      Text="Open data set"
                                      Command="{Binding LoadDataSetCommand}" />
                 <controls:IconButton Icon="Close"
-                                     Text ="Close data set"
+                                     Text="Close data set"
                                      Command="{Binding CloseDataSetCommand}"
-                                     Visibility="{Binding IsDataSetLoaded, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                     Visibility="{Binding IsDataSetLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </ToolBar>
             <ToolBar>
                 <controls:IconButton Icon="Settings"
@@ -42,22 +43,17 @@
         </ToolBarTray>
         <Separator Grid.Row="1" />
         <Grid Grid.Row="2">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <dataSet:FileTreeView DataContext="{Binding FileTreeViewModel}" />
-            </Grid>
+            <dataSet:FileTreeView DataContext="{Binding FileTreeViewModel}"
+                                  Visibility="{Binding ElementName=Root, Path=DataContext.IsDataSetLoaded, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <Rectangle Fill="DarkGray"
                        Opacity="0.2"
                        Visibility="{Binding IsDataSetLoaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                        HorizontalAlignment="Stretch"
-                       VerticalAlignment="Stretch"/>
+                       VerticalAlignment="Stretch" />
             <TextBlock Text="No data set loaded!"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
-                       Visibility="{Binding IsDataSetLoaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
+                       Visibility="{Binding IsDataSetLoaded, Converter={StaticResource InverseBooleanToVisibilityConverter}}" />
         </Grid>
     </Grid>
 </UserControl>
