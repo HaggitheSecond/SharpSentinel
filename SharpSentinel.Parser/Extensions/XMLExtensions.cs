@@ -56,9 +56,6 @@ namespace SharpSentinel.Parser.Extensions
             var fileLocationNode = dataObjectNode
                 .SelectSingleNodeThrowIfNull("byteStream/fileLocation");
 
-            if (fileLocationNode == null)
-                throw new XmlNodeNotFoundException();
-
             var fileLocationRawAttributes = fileLocationNode
                 .Attributes;
 
@@ -66,8 +63,14 @@ namespace SharpSentinel.Parser.Extensions
                 throw new XmlException();
 
             var fileLocation = fileLocationRawAttributes
-                .GetNamedItem("href")
-                .Value;
+                .GetNamedItem("href");
+
+            return fileLocation.GetFileInfoFromHrefAttribute(baseDirectory);
+        }
+
+        public static FileInfo GetFileInfoFromHrefAttribute(this XmlNode hrefAttribute, [NotNull] DirectoryInfo baseDirectory)
+        {
+            var fileLocation = hrefAttribute.Value;
 
             if (fileLocation.StartsWith("./"))
                 fileLocation = fileLocation.Remove(0, 2);

@@ -58,7 +58,7 @@ namespace SharpSentinel.Parser.Parsers
                 };
 
                 data.MeasurementDataUnits = MeasurementDataUnitParser.Parse(informationPackageMap, metaDataSection, dataObjectSection, manager, data.BaseDirectory);
-                data.Preview = PreviewParser.Parse(informationPackageMap, dataObjectSection, manager, data.BaseDirectory);
+                data.Preview = PreviewParser.Parse(informationPackageMap, metaDataSection, dataObjectSection, manager, data.BaseDirectory);
             }
 
 

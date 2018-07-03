@@ -5,7 +5,7 @@ using SharpSentinel.Parser.Data.S1.Annotations;
 
 namespace SharpSentinel.Parser.Data.S1
 {
-    public class ProductAnnotation : IXmlFile
+    public class ProductAnnotation : IXmlFile, IHaveDocumentation
     { 
         /// <summary>
         /// Systemdata for the .xml file
@@ -31,5 +31,10 @@ namespace SharpSentinel.Parser.Data.S1
         /// Quality information data set record. This DSR contains the quality flags and the values used to set them during image processing as well as the overall quality index.
         /// </summary>
         public QualityInformation QualityInformation { get; set; }
+        
+        /// <summary>
+        /// The .xsd documentation for this .xml file.
+        /// </summary>
+        public Documentation Documentation { get; set; }
     }
 }

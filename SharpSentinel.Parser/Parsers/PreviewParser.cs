@@ -12,6 +12,7 @@ namespace SharpSentinel.Parser.Parsers
     public static class PreviewParser
     {
         public static Preview Parse([NotNull] XmlNode informationPackageMap,
+            [NotNull] XmlNode metadataSection,
             [NotNull] XmlNode dataObjectSection,
             [NotNull] XmlNamespaceManager manager,
             [NotNull] DirectoryInfo baseDirectory)
@@ -23,9 +24,9 @@ namespace SharpSentinel.Parser.Parsers
 
             var preview = new Preview();
 
-            preview.QuickLook = QuickLookParser.Parse(informationPackageMap, dataObjectSection, manager, baseDirectory);
-            preview.MapOverlay = MapOverlayParser.Parse(informationPackageMap, dataObjectSection, manager, baseDirectory);
-            preview.ProductPreview = ProductPreviewParser.Parse(informationPackageMap, dataObjectSection, manager, baseDirectory);
+            preview.QuickLook = QuickLookParser.Parse(informationPackageMap, metadataSection, dataObjectSection, manager, baseDirectory);
+            preview.MapOverlay = MapOverlayParser.Parse(informationPackageMap, metadataSection, dataObjectSection, manager, baseDirectory);
+            preview.ProductPreview = ProductPreviewParser.Parse(informationPackageMap, metadataSection, dataObjectSection, manager, baseDirectory);
 
             return preview;
         }
@@ -33,6 +34,7 @@ namespace SharpSentinel.Parser.Parsers
         public static class QuickLookParser
         {
             public static QuickLook Parse([NotNull] XmlNode informationPackageMap,
+                [NotNull] XmlNode metadataSection,
                 [NotNull] XmlNode dataObjectSection,
                 [NotNull] XmlNamespaceManager manager,
                 [NotNull] DirectoryInfo baseDirectory)
@@ -47,6 +49,8 @@ namespace SharpSentinel.Parser.Parsers
                 quickLook.File = quickLookObjectNode.GetFileInfoFromDataObject(baseDirectory);
                 quickLook.Checksum = quickLookObjectNode.GetChecksumFromDataObject();
 
+                quickLook.Documentation = DocumentationParser.ParseQuickLookDocumentation(metadataSection, manager, baseDirectory);
+
                 return quickLook;
             }
         }
@@ -54,6 +58,7 @@ namespace SharpSentinel.Parser.Parsers
         public static class MapOverlayParser
         {
             public static MapOverlay Parse([NotNull] XmlNode informationPackageMap,
+                [NotNull] XmlNode metadataSection,
                 [NotNull] XmlNode dataObjectSection,
                 [NotNull] XmlNamespaceManager manager,
                 [NotNull] DirectoryInfo baseDirectory)
@@ -68,6 +73,8 @@ namespace SharpSentinel.Parser.Parsers
 
                 mapOverlay.File = mapOverlayObjectNode.GetFileInfoFromDataObject(baseDirectory);
 
+                mapOverlay.Documentation = DocumentationParser.ParseMapOverlayDocumentation(metadataSection, manager, baseDirectory);
+
                 return mapOverlay;
             }
         }
@@ -75,6 +82,7 @@ namespace SharpSentinel.Parser.Parsers
         public static class ProductPreviewParser
         {
             public static ProductPreview Parse([NotNull] XmlNode informationPackageMap,
+                [NotNull] XmlNode metadataSection,
                 [NotNull] XmlNode dataObjectSection,
                 [NotNull] XmlNamespaceManager manager,
                 [NotNull] DirectoryInfo baseDirectory)
@@ -88,6 +96,8 @@ namespace SharpSentinel.Parser.Parsers
 
                 productPreview.File = productPreviewObjectNode.GetFileInfoFromDataObject(baseDirectory);
                 productPreview.HtmlText = File.ReadAllText(productPreview.File.FullName);
+
+                productPreview.Documentation = DocumentationParser.ParseProductPreviewDocumentation(metadataSection, manager, baseDirectory);
 
                 return productPreview;
             }

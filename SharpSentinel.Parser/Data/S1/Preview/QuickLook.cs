@@ -4,7 +4,7 @@ using SharpSentinel.Parser.Data.Interfaces;
 
 namespace SharpSentinel.Parser.Data.S1.Preview
 {
-    public class QuickLook : IImageFile
+    public class QuickLook : IImageFile, IHaveDocumentation
     {
         /// <summary>
         /// Systemdata for the file
@@ -15,5 +15,10 @@ namespace SharpSentinel.Parser.Data.S1.Preview
         /// The checksum included in the manifest.safe
         /// </summary>
         public Checksum Checksum { get; set; }
+
+        /// <summary>
+        /// The .xsd documentation for this .png file. For this file it does not contain any actual documentation.
+        /// </summary>
+        public Documentation Documentation { get; set; }
     }
 }

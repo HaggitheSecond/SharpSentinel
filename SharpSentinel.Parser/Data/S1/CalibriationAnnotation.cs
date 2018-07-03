@@ -6,7 +6,7 @@ using SharpSentinel.Parser.Data.S1.Annotations;
 
 namespace SharpSentinel.Parser.Data.S1
 {
-    public class CalibriationAnnotation : IXmlFile
+    public class CalibriationAnnotation : IXmlFile, IHaveDocumentation
     {
         /// <summary>
         /// Systemdata for the .xml file
@@ -39,5 +39,10 @@ namespace SharpSentinel.Parser.Data.S1
         /// 1s and a maximum product length of 25 minutes, the maximum size of this list is 1500 elements.The azimuth spacing used will be different for different modes and product types
         /// </summary>
         public IList<CalibrationVector> CalibrationVectors { get; set; }
+        
+        /// <summary>
+        /// The .xsd documentation for this .xml file.
+        /// </summary>
+        public Documentation Documentation { get; set; }
     }
 }

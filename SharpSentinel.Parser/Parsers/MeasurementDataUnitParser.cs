@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using JetBrains.Annotations;
+using SharpSentinel.Parser.Data.Common;
 using SharpSentinel.Parser.Data.S1;
 using SharpSentinel.Parser.Extensions;
 using SharpSentinel.Parser.Helpers;
@@ -22,13 +23,20 @@ namespace SharpSentinel.Parser.Parsers
             Guard.NotNull(dataObjectSection, nameof(dataObjectSection));
             Guard.NotNull(manager, nameof(manager));
             Guard.NotNullAndValidFileSystemInfo(baseDirectory, nameof(baseDirectory));
+            
+            var documentations = DocumentationParser.ParseAnnotationDocumentations(metaDataSection, manager, baseDirectory);
 
             var measurementDataUnitNodes = informationPackageMap.SelectNodes("xfdu:contentUnit/xfdu:contentUnit[@repID='s1Level1MeasurementSchema']", manager);
 
-            return measurementDataUnitNodes.Cast<XmlNode>().Select(f => ParseMeasurementUnit(f, metaDataSection, dataObjectSection, manager, baseDirectory)).ToList();
+            return measurementDataUnitNodes.Cast<XmlNode>().Select(f => ParseMeasurementUnit(f, metaDataSection, dataObjectSection, manager, baseDirectory, documentations)).ToList();
         }
 
-        private static MeasurementDataUnit ParseMeasurementUnit([NotNull]XmlNode informationPackageMapNode, [NotNull]XmlNode metaDataSection, [NotNull]XmlNode dataObjectSection, [NotNull]XmlNamespaceManager manager, [NotNull]DirectoryInfo baseDirectory)
+        private static MeasurementDataUnit ParseMeasurementUnit([NotNull]XmlNode informationPackageMapNode, 
+            [NotNull]XmlNode metaDataSection, 
+            [NotNull]XmlNode dataObjectSection, 
+            [NotNull]XmlNamespaceManager manager,
+            [NotNull]DirectoryInfo baseDirectory,
+            (Documentation noiseDocumentation, Documentation productDocumentation, Documentation calibrationDocumentation) documentations)
         {
             var measurementDataUnit = new MeasurementDataUnit();
 
@@ -62,14 +70,26 @@ namespace SharpSentinel.Parser.Parsers
                 {
                     case "s1Level1ProductSchema":
                         measurementDataUnit.ProductAnnotation = ProductAnnotationParser.Parse(annotationFileLocation, annotationChecksum);
+
+                        if (documentations.productDocumentation != null)
+                            measurementDataUnit.ProductAnnotation.Documentation = documentations.productDocumentation;
+
                         break;
 
                     case "s1Level1NoiseSchema":
                         measurementDataUnit.NoiseAnnotation = NoiseAnnotationParser.Parse(annotationFileLocation, annotationChecksum);
+
+                        if (documentations.noiseDocumentation != null)
+                            measurementDataUnit.NoiseAnnotation.Documentation = documentations.noiseDocumentation;
+
                         break;
 
                     case "s1Level1CalibrationSchema":
                         measurementDataUnit.CalibriationAnnotation = CalibrationAnnotationParser.Parse(annotationFileLocation, annotationChecksum);
+
+                        if (documentations.calibrationDocumentation != null)
+                            measurementDataUnit.CalibriationAnnotation.Documentation = documentations.calibrationDocumentation;
+
                         break;
 
                     default:
@@ -79,6 +99,8 @@ namespace SharpSentinel.Parser.Parsers
 
             measurementDataUnit.File = measurementDataObject.GetFileInfoFromDataObject(baseDirectory);
             measurementDataUnit.Checksum = measurementDataObject.GetChecksumFromDataObject();
+            
+            measurementDataUnit.Documentation = DocumentationParser.ParseMeasurementDataUnitDocumentation(metaDataSection, manager, baseDirectory);
 
             return measurementDataUnit;
         }

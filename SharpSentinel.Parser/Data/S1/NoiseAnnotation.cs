@@ -6,7 +6,7 @@ using SharpSentinel.Parser.Data.S1.Annotations;
 
 namespace SharpSentinel.Parser.Data.S1
 {
-    public class NoiseAnnotation : IXmlFile
+    public class NoiseAnnotation : IXmlFile, IHaveDocumentation
     {
         /// <summary>
         /// Systemdata for the .xml file
@@ -40,5 +40,10 @@ namespace SharpSentinel.Parser.Data.S1
         /// (i.e.it can't cross by design two swaths) and it is delimited by firstAzimuthLine, lastAzimuthLine,firstRangeSample, lastRangeSample.
         /// </summary>
         public IList<NoiseAzimuthVector> NoiseAzimuthVectors { get; set; }
+
+        /// <summary>
+        /// The .xsd documentation for this .xml file.
+        /// </summary>
+        public Documentation Documentation { get; set; }
     }
 }

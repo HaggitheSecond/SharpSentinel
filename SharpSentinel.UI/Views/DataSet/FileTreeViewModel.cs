@@ -62,6 +62,17 @@ namespace SharpSentinel.UI.Views.DataSet
 
             var supportDirectory = new DirectoryTreeItem(allDirectories.First(f => f.Name == "support"));
 
+            var firstMeasurmenet = data.MeasurementDataUnits.First();
+
+            supportDirectory.Children.Add(new FileTreeItem(firstMeasurmenet.Documentation.File, firstMeasurmenet.Documentation));
+            supportDirectory.Children.Add(new FileTreeItem(firstMeasurmenet.ProductAnnotation.Documentation.File, firstMeasurmenet.ProductAnnotation.Documentation));
+            supportDirectory.Children.Add(new FileTreeItem(firstMeasurmenet.CalibriationAnnotation.Documentation.File, firstMeasurmenet.CalibriationAnnotation.Documentation));
+            supportDirectory.Children.Add(new FileTreeItem(firstMeasurmenet.NoiseAnnotation.Documentation.File, firstMeasurmenet.NoiseAnnotation.Documentation));
+
+            supportDirectory.Children.Add(new FileTreeItem(data.Preview.MapOverlay.Documentation.File, data.Preview.MapOverlay.Documentation));
+            supportDirectory.Children.Add(new FileTreeItem(data.Preview.QuickLook.Documentation.File, data.Preview.QuickLook.Documentation));
+            supportDirectory.Children.Add(new FileTreeItem(data.Preview.ProductPreview.Documentation.File, data.Preview.ProductPreview.Documentation));
+
             var annotationDirectory = new DirectoryTreeItem(allDirectories.First(f => f.Name == "annotation"));
             var calibrationDirectory = new DirectoryTreeItem(annotationDirectory.DirectoryInfo.GetDirectories().First(f => f.Name == "calibration"));
             calibrationDirectory.Children.AddRange(data.MeasurementDataUnits.Select(f => f.CalibriationAnnotation).Select(f => new FileTreeItem(f.File, f, calibrationAnnotationDescription)));

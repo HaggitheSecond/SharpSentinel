@@ -4,7 +4,7 @@ using SharpSentinel.Parser.Data.Interfaces;
 
 namespace SharpSentinel.Parser.Data.S1
 {
-    public class MeasurementDataUnit : IFile
+    public class MeasurementDataUnit : IFile, IHaveDocumentation
     {
         /// <summary>
         /// Systemdata for the .tiff file
@@ -32,5 +32,10 @@ namespace SharpSentinel.Parser.Data.S1
         /// state of the platform during acquisition, image properties, Doppler information, geographic location, etc.
         /// </summary>
         public ProductAnnotation ProductAnnotation { get; set; }
+
+        /// <summary>
+        /// The .xsd documentation for this .html file. For this file it does not contain any actual documentation.
+        /// </summary>
+        public Documentation Documentation { get; set; }
     }
 }

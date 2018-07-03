@@ -189,7 +189,7 @@
                                                  Style="{StaticResource TextBlockWithLabelStyle}" />
                 </StackPanel>
             </Expander>
-            <Expander  Header="General product information"
+            <Expander  Header="Processing"
                        IsExpanded="False"
                        Margin="0,2,0,0">
 

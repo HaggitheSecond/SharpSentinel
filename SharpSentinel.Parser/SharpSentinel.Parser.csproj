@@ -37,6 +37,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +50,8 @@
   <ItemGroup>
     <Compile Include="Data\BaseData.cs" />
     <Compile Include="Data\Common\Checksum.cs" />
+    <Compile Include="Data\Common\Documentation.cs" />
+    <Compile Include="Data\Interfaces\IHaveDocumentation.cs" />
     <Compile Include="Data\Interfaces\IFile.cs" />
     <Compile Include="Data\Interfaces\IHtmlFile.cs" />
     <Compile Include="Data\Interfaces\IImageFile.cs" />
@@ -93,6 +98,7 @@
     <Compile Include="Parsers\Annotations\CalibrationAnnotationParser.cs" />
     <Compile Include="Parsers\Annotations\NoiseAnnotationParser.cs" />
     <Compile Include="Parsers\Annotations\ProductAnnotationParser.cs" />
+    <Compile Include="Parsers\DocumentationParser.cs" />
     <Compile Include="Parsers\ManifestParser.cs" />
     <Compile Include="Parsers\MeasurementDataUnitParser.cs" />
     <Compile Include="Parsers\MetaDataParser.cs" />
