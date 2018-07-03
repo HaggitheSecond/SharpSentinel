@@ -30,5 +30,10 @@ namespace SharpSentinel.UI.Views.DataSet
         }
 
         public abstract string GetDisplayName();
+
+        public virtual void Deactivate()
+        {
+
+        }
     }
 }

@@ -125,6 +125,7 @@
     <Compile Include="Controls\TextBlockWithLabel.xaml.cs">
       <DependentUpon>TextBlockWithLabel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\XmlFormatter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\WindsorContainerExtensions.cs" />

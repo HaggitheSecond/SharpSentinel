@@ -19,5 +19,13 @@ namespace SharpSentinel.UI.Extensions
                 return self;
             }
         }
+
+        public static bool ContainsOnlyWhitespaceAndNewLines(this string self)
+        {
+            var text1 = self.Replace(" ", "");
+            var text2 = text1.Replace("\r\n", "");
+
+            return text2.Length == 0;
+        }
     }
 }

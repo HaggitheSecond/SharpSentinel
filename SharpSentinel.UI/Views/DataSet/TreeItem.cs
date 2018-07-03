@@ -92,7 +92,7 @@ namespace SharpSentinel.UI.Views.DataSet
             if (this.Data is IXmlFile xmlFile)
             {
                 var xmlViewModel = IoC.Get<XmlTreeItemDetailViewModel>();
-                xmlViewModel.Intialize(xmlFile.RawXml, xmlFile.File.Name);
+                xmlViewModel.Intialize(xmlFile.RawXml);
                 this.DetailPages.Add(xmlViewModel);
             }
 

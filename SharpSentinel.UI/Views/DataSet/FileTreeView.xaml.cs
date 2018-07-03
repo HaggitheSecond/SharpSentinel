@@ -128,6 +128,7 @@ namespace SharpSentinel.UI.Views.DataSet
 
         private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            this.DeactivateItems();
             this.TabControl.Items.Clear();
 
             if (!(e.NewValue is TreeViewItem treeViewItem))
@@ -150,6 +151,16 @@ namespace SharpSentinel.UI.Views.DataSet
             this.TabControl.SelectedItem = this.TabControl.Items[0];
         }
 
+        private void DeactivateItems()
+        {
+            foreach (var currentItem in this.TabControl.Items)
+            {
+                if (currentItem is TabItem tab)
+                    if (tab.Tag is TreeItemDetail detail)
+                        detail.Deactivate();
+            }
+        }
+
         private TabItem GenerateDetailPage(TreeItemDetail treeItemDetail)
         {
             var tabItem = new TabItem
@@ -170,7 +181,8 @@ namespace SharpSentinel.UI.Views.DataSet
                             Text = treeItemDetail.GetDisplayName()
                         }
                     }
-                }
+                },
+                Tag = treeItemDetail
             };
 
             var view = ViewLocator.LocateForModel(treeItemDetail, null, null);
