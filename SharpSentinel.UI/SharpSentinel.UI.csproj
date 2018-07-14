@@ -169,10 +169,10 @@
       <DependentUpon>FileTreeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DataSet\FileTreeViewModel.cs" />
-    <Compile Include="Views\DataSet\LoadDataSetView.xaml.cs">
+    <Compile Include="Views\DataSet\Loading\LoadDataSetView.xaml.cs">
       <DependentUpon>LoadDataSetView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\DataSet\LoadDataSetViewModel.cs" />
+    <Compile Include="Views\DataSet\Loading\LoadDataSetViewModel.cs" />
     <Compile Include="Views\DataSet\TreeItem.cs" />
     <Compile Include="Views\DataSet\TreeItemDetail.cs" />
     <Compile Include="Views\Settings\SettingsView.xaml.cs">
@@ -253,7 +253,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\DataSet\LoadDataSetView.xaml">
+    <Page Include="Views\DataSet\Loading\LoadDataSetView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

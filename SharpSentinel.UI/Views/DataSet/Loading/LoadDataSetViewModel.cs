@@ -91,6 +91,9 @@ namespace SharpSentinel.UI.Views.DataSet
         {
             var result = this._messageManager.ShowSelectFolderDialog();
 
+            if (result.result.GetValueOrDefault() == false)
+                return;
+
             this.SelectedFolderPath = result.result.GetValueOrDefault() ? result.selectedPath : string.Empty;
 
             try
