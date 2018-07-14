@@ -4,15 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SharpSentinel.UI.Controls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800"
              x:Name="Root">
     <StackPanel Orientation="Horizontal">
-        <TextBlock Text="{Binding ElementName=Root, Path=Label}" 
+        <TextBlock Text="{Binding ElementName=Root, Path=Label}"
                    Margin="0,0,10,0"
                    FontWeight="Bold"
-                   Width="{Binding ElementName=Root, Path=LabelWidth}"/>
+                   Width="{Binding ElementName=Root, Path=LabelWidth}" />
         <TextBlock Text="{Binding ElementName=Root, Path=Value}" />
     </StackPanel>
 </UserControl>

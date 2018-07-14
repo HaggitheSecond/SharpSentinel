@@ -35,7 +35,7 @@ namespace SharpSentinel.Parser.Helpers
                 if (summaryNode == null)
                     throw new XmlException();
 
-                propertyDescription = summaryNode.InnerText;
+                propertyDescription = summaryNode.InnerText.Trim();
 
                 return true;
             }
