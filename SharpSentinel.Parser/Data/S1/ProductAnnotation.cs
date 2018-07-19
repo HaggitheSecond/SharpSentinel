@@ -33,6 +33,11 @@ namespace SharpSentinel.Parser.Data.S1
         public QualityInformation QualityInformation { get; set; }
         
         /// <summary>
+        /// 
+        /// </summary>
+        public GeneralAnnotation GeneralAnnotation { get; set; }
+
+        /// <summary>
         /// The .xsd documentation for this .xml file.
         /// </summary>
         public Documentation Documentation { get; set; }
